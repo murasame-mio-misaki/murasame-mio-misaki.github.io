@@ -1,0 +1,843 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Miss.M">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Welcome&amp;Functionloop for in python, do not forget to add range  . 1for i in range(a,b): #a included, b excluded (actually [a,b+1])  reverse string: 1[::-1]    Control&amp;Higher order functionto c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS61A casual notes">
+<meta property="og:url" content="https://murasame-mio-misaki.github.io/2025/08/05/CS61A-casual-notes/index.html">
+<meta property="og:site_name" content="Miss.M">
+<meta property="og:description" content="Welcome&amp;Functionloop for in python, do not forget to add range  . 1for i in range(a,b): #a included, b excluded (actually [a,b+1])  reverse string: 1[::-1]    Control&amp;Higher order functionto c">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/08/05/CS61A-casual-notes/873B478030456F91336CB440B1891687.jpg">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/08/05/CS61A-casual-notes/image.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/08/05/CS61A-casual-notes/image-1.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/08/05/CS61A-casual-notes/image-2.png">
+<meta property="article:published_time" content="2025-08-05T01:52:47.000Z">
+<meta property="article:modified_time" content="2025-08-05T02:18:53.788Z">
+<meta property="article:author" content="Miss.M">
+<meta property="article:tag" content="Programming and Algorithms">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murasame-mio-misaki.github.io/2025/08/05/CS61A-casual-notes/873B478030456F91336CB440B1891687.jpg">
+  
+  
+  
+  <title>CS61A casual notes - Miss.M</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"murasame-mio-misaki.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Miss.M&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/catstyping.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CS61A casual notes"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-05 09:52" pubdate>
+          August 5, 2025 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CS61A casual notes</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Welcome-Function"><a href="#Welcome-Function" class="headerlink" title="Welcome&amp;Function"></a>Welcome&amp;Function</h2><p>loop <code>for</code> in python, do not forget to add <code>range </code> .</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(a,b): <span class="hljs-comment">#a included, b excluded (actually [a,b+1])</span><br></code></pre></td></tr></table></figure>
+
+<p>reverse string:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">[::-<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Control-Higher-order-function"><a href="#Control-Higher-order-function" class="headerlink" title="Control&amp;Higher order function"></a>Control&amp;Higher order function</h2><p>to check a function’s docstring:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">help</span>(func)<br></code></pre></td></tr></table></figure>
+
+<p>and type q to exit.</p>
+<p> lambda expression:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">[expression name]=<span class="hljs-keyword">lambda</span> [parameters]:[value] <br></code></pre></td></tr></table></figure>
+
+<p>In python, functions can also be parameters of other functions.</p>
+<h3 id="Hog"><a href="#Hog" class="headerlink" title="Hog"></a>Hog</h3><p>example of <code>assert</code> checkers:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">assert</span> <span class="hljs-built_in">type</span>(num_rolls) == <span class="hljs-built_in">int</span>, <span class="hljs-string">&#x27;num_rolls must be an integer.&#x27;</span><br><span class="hljs-keyword">assert</span> num_rolls &gt; <span class="hljs-number">0</span>, <span class="hljs-string">&#x27;Must roll at least once.&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>*args syntax is used for the function that has arbitrary numbers of args.</p>
+<p>Ex: in problem 8:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">make_averaged</span>(<span class="hljs-params">original_function, times_called=<span class="hljs-number">1000</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Return a function that returns the average value of ORIGINAL_FUNCTION</span><br><span class="hljs-string">    called TIMES_CALLED times.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    To implement this function, you will have to use *args syntax.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    &gt;&gt;&gt; dice = make_test_dice(4, 2, 5, 1)</span><br><span class="hljs-string">    &gt;&gt;&gt; averaged_dice = make_averaged(roll_dice, 40)</span><br><span class="hljs-string">    &gt;&gt;&gt; averaged_dice(1, dice)  # The avg of 10 4&#x27;s, 10 2&#x27;s, 10 5&#x27;s, and 10 1&#x27;s</span><br><span class="hljs-string">    3.0</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># BEGIN PROBLEM 8</span><br>   <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">func</span>(<span class="hljs-params">*args</span>):<br>        <span class="hljs-built_in">sum</span> = <span class="hljs-number">0</span><br><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(times_called):<br>            <span class="hljs-built_in">sum</span> += original_function(*args)<br>        <br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>/times_called<br>    <br>    <span class="hljs-keyword">return</span> func<br></code></pre></td></tr></table></figure>
+
+<p> We don’t precisely know how many parameters the <code>original_function</code> needs, so we use <code>*args</code>.</p>
+<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>The expression is calculated from left to right. If the logical value of the left side of or is true, all expressions after or (whether it is followed by and or, etc.) are short-circuited, and the expression on the left side of or is directly output; if the logical value of the expression on the left side of or is false, the expression after or is output, regardless of whether the following expression is true or false.<br>The expression is calculated from left to right. If the logical value of the left side of and is false, all expressions after and are short-circuited until or appears, and the expression on the left side of and is output to the left side of or to participate in the next logical operation.<br>If the left side of or is false, or the left side of and is true, short-circuit logic cannot be used.</p>
+<p>The types that can be considered False are: None, 0 of any numeric type, empty string ‘ ‘, empty tuple (), empty list [], empty dictionary {}</p>
+<h2 id="Recursion"><a href="#Recursion" class="headerlink" title="Recursion"></a>Recursion</h2><p>The source code of hw03 shows a way to check or ban specific key words&#x2F;structures:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> construct_check <span class="hljs-keyword">import</span> check<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-comment"># ban all assignment statements</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>check(HW_SOURCE_FILE, <span class="hljs-string">&#x27;num_eights&#x27;</span>,<br><span class="hljs-meta">... </span>      [<span class="hljs-string">&#x27;Assign&#x27;</span>, <span class="hljs-string">&#x27;AnnAssign&#x27;</span>, <span class="hljs-string">&#x27;AugAssign&#x27;</span>, <span class="hljs-string">&#x27;NamedExpr&#x27;</span>, <span class="hljs-string">&#x27;For&#x27;</span>, <span class="hljs-string">&#x27;While&#x27;</span>])<br><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="Cats"><a href="#Cats" class="headerlink" title="Cats"></a>Cats</h3><p>decorator in python (<code>@</code>):<br>Q: What is a decorator in Python?<br>Choose the number of the correct choice:<br>0) A way to loop through an iterable</p>
+<ol>
+<li>A type of design pattern</li>
+<li>A method for declaring class properties</li>
+<li>A function that takes another function as an input and returns a new function that extends or modifies the behavior of the original function<br>? 3</li>
+</ol>
+<p>Ex:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>def my_decorator(func):</span><br><span class="hljs-string"><span class="hljs-meta">... </span>  def wrapper():</span><br><span class="hljs-string"><span class="hljs-meta">... </span>      print(&quot;Say Hello&quot;)</span><br><span class="hljs-string"><span class="hljs-meta">... </span>      func()</span><br><span class="hljs-string"><span class="hljs-meta">... </span>      print(&quot;Say Goodbye&quot;)</span><br><span class="hljs-string"><span class="hljs-meta">... </span>  return wrapper</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>@my_decorator</span><br><span class="hljs-string"><span class="hljs-meta">... </span>def say_hello():</span><br><span class="hljs-string"><span class="hljs-meta">... </span>    print(&quot;Hello World&quot;)</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>say_hello()</span><br><span class="hljs-string">(line 1)? Say Hello</span><br><span class="hljs-string">(line 2)? Hello World</span><br><span class="hljs-string">(line 3)? Say Goodbye</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>def magic_decorator(func):</span><br><span class="hljs-string"><span class="hljs-meta">... </span>  def wrapper(x):</span><br><span class="hljs-string"><span class="hljs-meta">... </span>    return func(x * 2)</span><br><span class="hljs-string"><span class="hljs-meta">... </span>  return wrapper</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>@magic_decorator</span><br><span class="hljs-string"><span class="hljs-meta">... </span>def myfunc(x):</span><br><span class="hljs-string"><span class="hljs-meta">... </span>  return x * 3</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>print(myfunc(4))</span><br><span class="hljs-string">? 24</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>to check whether a function is recursive:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>from cats import furry_fixes, autocorrect</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>import tests.construct_check as test</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span># Check that the recursion stops when the limit is reached</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>import trace, io</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>from contextlib import redirect_stdout</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>with io.StringIO() as buf, redirect_stdout(buf):</span><br><span class="hljs-string"><span class="hljs-meta">... </span>    trace.Trace(trace=True).runfunc(furry_fixes, &quot;someaweqwertyuio&quot;, &quot;awesomeasdfghjkl&quot;, 3)     </span><br><span class="hljs-string"><span class="hljs-meta">... </span>    output = buf.getvalue()</span><br><span class="hljs-string"><span class="hljs-meta">&gt;&gt;&gt; </span>len([line for line in output.split(&#x27;\n&#x27;) if &#x27;funcname&#x27; in line]) &lt; 12</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>str slice:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">sequence[start:stop:step]<br></code></pre></td></tr></table></figure>
+
+
+
+<p>question 07: Levenshtein distance</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/507830576">https://zhuanlan.zhihu.com/p/507830576</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=MiqoA-yF-0M">https://www.youtube.com/watch?v=MiqoA-yF-0M</a></p>
+<p>The dp relation:<br><img src="/2025/08/05/CS61A-casual-notes/873B478030456F91336CB440B1891687.jpg" srcset="/img/loading.gif" lazyload alt="dp"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">minimum_mewtations</span>(<span class="hljs-params">typed, source, limit</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;A diff function for autocorrect that computes the edit distance from TYPED to SOURCE.</span><br><span class="hljs-string">    This function takes in a string TYPED, a string SOURCE, and a number LIMIT.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Arguments:</span><br><span class="hljs-string">        typed: a starting word</span><br><span class="hljs-string">        source: a string representing a desired goal word</span><br><span class="hljs-string">        limit: a number representing an upper bound on the number of edits</span><br><span class="hljs-string"></span><br><span class="hljs-string">    &gt;&gt;&gt; big_limit = 10</span><br><span class="hljs-string">    &gt;&gt;&gt; minimum_mewtations(&quot;cats&quot;, &quot;scat&quot;, big_limit)       # cats -&gt; scats -&gt; scat</span><br><span class="hljs-string">    2</span><br><span class="hljs-string">    &gt;&gt;&gt; minimum_mewtations(&quot;purng&quot;, &quot;purring&quot;, big_limit)   # purng -&gt; purrng -&gt; purring</span><br><span class="hljs-string">    2</span><br><span class="hljs-string">    &gt;&gt;&gt; minimum_mewtations(&quot;ckiteus&quot;, &quot;kittens&quot;, big_limit) # ckiteus -&gt; kiteus -&gt; kitteus -&gt; kittens</span><br><span class="hljs-string">    3</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> limit &lt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">if</span> typed == <span class="hljs-string">&quot;&quot;</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(source)<br>    <span class="hljs-keyword">if</span> source == <span class="hljs-string">&quot;&quot;</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(typed)<br>    <br>    <span class="hljs-keyword">if</span> typed[<span class="hljs-built_in">len</span>(typed)-<span class="hljs-number">1</span>] == source[<span class="hljs-built_in">len</span>(source)-<span class="hljs-number">1</span>]:<br>        <span class="hljs-keyword">return</span> minimum_mewtations(typed[:-<span class="hljs-number">1</span>], source[:-<span class="hljs-number">1</span>], limit )<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> + <span class="hljs-built_in">min</span>(minimum_mewtations(typed[:-<span class="hljs-number">1</span>], source[:-<span class="hljs-number">1</span>], limit - <span class="hljs-number">1</span>), minimum_mewtations(typed[:-<span class="hljs-number">1</span>], source, limit - <span class="hljs-number">1</span>), minimum_mewtations(typed, source[:-<span class="hljs-number">1</span>], limit - <span class="hljs-number">1</span>))<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Sequence-List-Data-Abstract-Tree"><a href="#Sequence-List-Data-Abstract-Tree" class="headerlink" title="Sequence&#x2F;List&amp;Data Abstract (Tree)"></a>Sequence&#x2F;List&amp;Data Abstract (Tree)</h2><p>To show a dictionary’s keys and values:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">dic.keys()<br>dic.value()<br></code></pre></td></tr></table></figure>
+
+<p>To check a variable’s type:<code>isinstance(&lt;varname&gt;, &lt;vartype&gt;)</code> or <code>type(&lt;varname&gt;) == &lt;vartype&gt;</code></p>
+<p>tree:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">tree</span>(<span class="hljs-params">label, branches=[]</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Construct a tree with the given label value and a list of branches.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">for</span> branch <span class="hljs-keyword">in</span> branches:<br>        <span class="hljs-keyword">assert</span> is_tree(branch), <span class="hljs-string">&#x27;branches must be trees&#x27;</span><br>    <span class="hljs-keyword">return</span> [label] + <span class="hljs-built_in">list</span>(branches)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Iterator-Generator-Mutability"><a href="#Iterator-Generator-Mutability" class="headerlink" title="Iterator, Generator, Mutability"></a>Iterator, Generator, Mutability</h2><p>use <code>it = iter(x)</code> to declare an iterator for an iterable (x)<br>use <code>next(it)</code> to iterate</p>
+<p>generator and yield statement:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">letters_generator</span>():<br>        current = <span class="hljs-string">&#x27;a&#x27;</span><br>        <span class="hljs-keyword">while</span> current &lt;= <span class="hljs-string">&#x27;d&#x27;</span>:<br>            <span class="hljs-keyword">yield</span> current<br>            current = <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(current)+<span class="hljs-number">1</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> letter <span class="hljs-keyword">in</span> letters_generator():<br>        <span class="hljs-built_in">print</span>(letter)<br><br>a<br>b<br>c<br>d<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>letters = letters_generator()<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">type</span>(letters)<br>&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;generator&#x27;</span>&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>letters.__next__()<br><span class="hljs-string">&#x27;a&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>letters.__next__()<br><span class="hljs-string">&#x27;b&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>letters.__next__()<br><span class="hljs-string">&#x27;c&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>letters.__next__()<br><span class="hljs-string">&#x27;d&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>The first time <strong>next</strong> is called, the program executes statements from the body of the letters_generator function until it encounters the yield statement. Then, it pauses and returns the value of current. yield statements do not destroy the newly created environment, they preserve it for later. When <strong>next</strong> is called again, execution resumes where it left off. The values of current and of any other bound names in the scope of letters_generator are preserved across subsequent calls to <strong>next</strong>.</p>
+<p>The map function, for example, takes a function and an iterable. It returns an iterator over the result of applying the function argument to each element in the iterable argument.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>caps = <span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: x.upper(), b_to_k)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(caps)<br><span class="hljs-string">&#x27;B&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(caps)<br><span class="hljs-string">&#x27;C&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>zip:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>[x + y <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>])]<br><span class="hljs-meta">&gt;&gt;&gt; </span>[<span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>]<br></code></pre></td></tr></table></figure>
+
+<p>yield from in a recursive situation<br>example 1:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">stair_ways</span>(<span class="hljs-params">n</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Yield all the ways to climb a set of n stairs taking</span><br><span class="hljs-string">    1 or 2 steps at a time.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    &gt;&gt;&gt; list(stair_ways(0))</span><br><span class="hljs-string">    [[]]</span><br><span class="hljs-string">    &gt;&gt;&gt; s_w = stair_ways(4)</span><br><span class="hljs-string">    &gt;&gt;&gt; sorted([next(s_w) for _ in range(5)])</span><br><span class="hljs-string">    [[1, 1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1], [2, 2]]</span><br><span class="hljs-string">    &gt;&gt;&gt; list(s_w) # Ensure you&#x27;re not yielding extra</span><br><span class="hljs-string">    []</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">recursive_stair_way</span>(<span class="hljs-params">m, way</span>):<br>        <span class="hljs-keyword">if</span> m == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">yield</span> way<br>        <span class="hljs-keyword">elif</span> m &gt; <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>):<br>             <br>              <span class="hljs-keyword">yield</span> <span class="hljs-keyword">from</span> recursive_stair_way(m-i, way+[i])<br><br>    <span class="hljs-keyword">return</span> recursive_stair_way(n, [])<br></code></pre></td></tr></table></figure>
+
+<p>example 2:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">yield_paths</span>(<span class="hljs-params">t, value</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Yields all possible paths from the root of t to a node with the label</span><br><span class="hljs-string">    value as a list.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    &gt;&gt;&gt; t1 = tree(1, [tree(2, [tree(3), tree(4, [tree(6)]), tree(5)]), tree(5)])</span><br><span class="hljs-string">    &gt;&gt;&gt; print_tree(t1)</span><br><span class="hljs-string">    1</span><br><span class="hljs-string">      2</span><br><span class="hljs-string">        3</span><br><span class="hljs-string">        4</span><br><span class="hljs-string">          6</span><br><span class="hljs-string">        5</span><br><span class="hljs-string">      5</span><br><span class="hljs-string">    &gt;&gt;&gt; next(yield_paths(t1, 6))</span><br><span class="hljs-string">    [1, 2, 4, 6]</span><br><span class="hljs-string">    &gt;&gt;&gt; path_to_5 = yield_paths(t1, 5)</span><br><span class="hljs-string">    &gt;&gt;&gt; sorted(list(path_to_5))</span><br><span class="hljs-string">    [[1, 2, 5], [1, 5]]</span><br><span class="hljs-string"></span><br><span class="hljs-string">    &gt;&gt;&gt; t2 = tree(0, [tree(2, [t1])])</span><br><span class="hljs-string">    &gt;&gt;&gt; print_tree(t2)</span><br><span class="hljs-string">    0</span><br><span class="hljs-string">      2</span><br><span class="hljs-string">        1</span><br><span class="hljs-string">          2</span><br><span class="hljs-string">            3</span><br><span class="hljs-string">            4</span><br><span class="hljs-string">              6</span><br><span class="hljs-string">            5</span><br><span class="hljs-string">          5</span><br><span class="hljs-string">    &gt;&gt;&gt; path_to_2 = yield_paths(t2, 2)</span><br><span class="hljs-string">    &gt;&gt;&gt; sorted(list(path_to_2))</span><br><span class="hljs-string">    [[0, 2], [0, 2, 1, 2]]</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">if</span> label(t) == value:<br>        <span class="hljs-keyword">yield</span> [value]<br>    <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> branches(t):<br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> yield_paths(b, value):<br>            <span class="hljs-keyword">yield</span> [label(t)] + k<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="OOP"><a href="#OOP" class="headerlink" title="OOP"></a>OOP</h2><h3 id="Ants"><a href="#Ants" class="headerlink" title="Ants"></a>Ants</h3><p>If a variable is defined outside all of the methods in a class, then it’s called a “class attribute” of this class.<br>Like the variable <code>next_id</code> and <code>damage</code> in the following example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Insect</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;An Insect, the base class of Ant and Bee, has health and a Place.&quot;&quot;&quot;</span><br><br>    next_id = <span class="hljs-number">0</span>  <span class="hljs-comment"># Every insect gets a unique id number</span><br>    damage = <span class="hljs-number">0</span><br>    <span class="hljs-comment"># ADD CLASS ATTRIBUTES HERE</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, health, place=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;Create an Insect with a health amount and a starting PLACE.&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.health = health<br>        <span class="hljs-variable language_">self</span>.place = place<br><br>        <span class="hljs-comment"># assign a unique ID to every insect</span><br>        <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">id</span> = Insect.next_id<br>        Insect.next_id += <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>Inheritance: <code>class B(A)</code> means that class B is derived from class A.</p>
+<p>To call a parent method, use <code>super()</code>.</p>
+<p>magic method <code>__str__</code> is for user, <code>__repr__</code> is for python interpreter</p>
+<p>about the method <code>max</code> and key:  </p>
+<p><a target="_blank" rel="noopener" href="https://deepinout.com/python/python-qa/41_python_python_max_function_using_key_and_lambda_expression.html">max-key</a></p>
+<h2 id="Scheme-Functional-Programming"><a href="#Scheme-Functional-Programming" class="headerlink" title="Scheme(Functional Programming)"></a>Scheme(Functional Programming)</h2><p class="note note-danger">Try to code in Scheme manually is just the hell of indentation and parentheses matching...</p>
+
+
+<p>Concept:Our object of study, a subset of the Scheme language, employs a very similar model of computation to Python’s, but uses only expressions (no statements), specializes in symbolic computation, and employs only immutable values.</p>
+<p>some special forms in scheme:<br>if:<code>(if &lt;predicate&gt; &lt;consequent&gt; &lt;alternative&gt;)</code><br>cond:</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scheme">(<span class="hljs-name"><span class="hljs-built_in">cond</span></span><br>    (<span class="hljs-name">&lt;p1&gt;</span> &lt;e1&gt;)<br>    (<span class="hljs-name">&lt;p2&gt;</span> &lt;e2&gt;)<br>    ...<br>    (<span class="hljs-name">&lt;pn&gt;</span> &lt;en&gt;)<br>    (<span class="hljs-name"><span class="hljs-built_in">else</span></span> &lt;else-expression&gt;))<br></code></pre></td></tr></table></figure>
+<p>define:<code>(define (&lt;name&gt; &lt;formal parameters&gt;) &lt;body&gt;)</code><br>lambda:<code>(lambda (&lt;formal-parameters&gt;) &lt;body&gt;)</code></p>
+<p>compound values(use built-in function <code>cons</code>):</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scheme">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> x (<span class="hljs-name"><span class="hljs-built_in">cons</span></span> <span class="hljs-number">1</span> <span class="hljs-number">2</span>))<br>x<br>(<span class="hljs-name">1</span> . <span class="hljs-number">2</span>)<br><br>(<span class="hljs-name"><span class="hljs-built_in">car</span></span> x)<br><span class="hljs-number">1</span><br>(<span class="hljs-name"><span class="hljs-built_in">cdr</span></span> x)<br><span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p>key words <code>cons</code> and <code>list</code> can be used to create link table.<br>Whether a list is empty can be determined using the primitive <code>null?</code> predicate.</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scheme">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> (<span class="hljs-name"><span class="hljs-built_in">length</span></span> items)<br>  (<span class="hljs-name"><span class="hljs-built_in">if</span></span> (<span class="hljs-name"><span class="hljs-built_in">null?</span></span> items)<br>      <span class="hljs-number">0</span><br>      (<span class="hljs-name"><span class="hljs-built_in">+</span></span> <span class="hljs-number">1</span> (<span class="hljs-name"><span class="hljs-built_in">length</span></span> (<span class="hljs-name"><span class="hljs-built_in">cdr</span></span> items)))))<br>(<span class="hljs-name"><span class="hljs-built_in">define</span></span> (<span class="hljs-name">getitem</span> items n)<br>  (<span class="hljs-name"><span class="hljs-built_in">if</span></span> (<span class="hljs-name"><span class="hljs-built_in">=</span></span> n <span class="hljs-number">0</span>)<br>      (<span class="hljs-name"><span class="hljs-built_in">car</span></span> items)<br>      (<span class="hljs-name">getitem</span> (<span class="hljs-name"><span class="hljs-built_in">cdr</span></span> items) (<span class="hljs-name"><span class="hljs-built_in">-</span></span> n <span class="hljs-number">1</span>))))<br>(<span class="hljs-name"><span class="hljs-built_in">define</span></span> squares (<span class="hljs-name"><span class="hljs-built_in">list</span></span> <span class="hljs-number">1</span> <span class="hljs-number">4</span> <span class="hljs-number">9</span> <span class="hljs-number">16</span> <span class="hljs-number">25</span>))<br></code></pre></td></tr></table></figure>
+
+<p>symbolic data:</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scheme">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> a <span class="hljs-number">1</span>)<br>(<span class="hljs-name"><span class="hljs-built_in">define</span></span> b <span class="hljs-number">2</span>)<br>(<span class="hljs-name"><span class="hljs-built_in">list</span></span> a b)<br>(<span class="hljs-name">1</span> <span class="hljs-number">2</span>)<br>(<span class="hljs-name"><span class="hljs-built_in">list</span></span> <span class="hljs-symbol">&#x27;a</span> <span class="hljs-symbol">&#x27;b</span>)<br>(<span class="hljs-name">a</span> b)<br>(<span class="hljs-name"><span class="hljs-built_in">list</span></span> <span class="hljs-symbol">&#x27;a</span> b)<br>(<span class="hljs-name">a</span> <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+
+<p>In Scheme, any expression that is not evaluated(with the prefix operator <code>&#39;</code>) is said to be <em>quoted</em>.</p>
+<p><code>no-repeats</code> in hw08:</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs scheme">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> (<span class="hljs-name">no-repeats</span> s) <br>(<span class="hljs-name"><span class="hljs-built_in">if</span></span> (<span class="hljs-name"><span class="hljs-built_in">null?</span></span> s)<br>nil<br>(<span class="hljs-name"><span class="hljs-built_in">cons</span></span> (<span class="hljs-name"><span class="hljs-built_in">car</span></span> s) (<span class="hljs-name">no-repeats</span> (<span class="hljs-name">filter</span> (<span class="hljs-name"><span class="hljs-built_in">lambda</span></span> (x) (<span class="hljs-name"><span class="hljs-built_in">not</span></span> (<span class="hljs-name"><span class="hljs-built_in">=</span></span> x (<span class="hljs-name"><span class="hljs-built_in">car</span></span> s))) ) (<span class="hljs-name"><span class="hljs-built_in">cdr</span></span> s) ) ))<br>)<br>)<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="Scheme-Interpreter"><a href="#Scheme-Interpreter" class="headerlink" title="Scheme Interpreter"></a>Scheme Interpreter</h2><p>给我吓出母语了，美国人怎么这么坏。<br>这proj红豆泥抽象，先把PROBLEM的空填了，有空再详细研究吧，不然CS61A拖太长了。</p>
+<h2 id="Higher-order-abstract-Scheme"><a href="#Higher-order-abstract-Scheme" class="headerlink" title="Higher-order abstract(Scheme)"></a>Higher-order abstract(Scheme)</h2><p>use  `  to create literal expression which can be unquoted by <code>,</code><br>use <code>define-macro</code> to define macro like <code>#define</code> in c</p>
+<p>examples in lab11:</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs scheme">(<span class="hljs-name"><span class="hljs-built_in">define</span></span> (<span class="hljs-name">if-program</span> condition if-true if-false)<br>`(if ,condition ,if-true ,if-false)<br>)<br><br>(<span class="hljs-name"><span class="hljs-built_in">define</span></span> (<span class="hljs-name">square</span> n) (<span class="hljs-name"><span class="hljs-built_in">*</span></span> n n))<br><br>(<span class="hljs-name"><span class="hljs-built_in">define</span></span> (<span class="hljs-name">pow-expr</span> base exp) <br>(<span class="hljs-name"><span class="hljs-built_in">cond</span></span> ((<span class="hljs-name"><span class="hljs-built_in">=</span></span> <span class="hljs-number">0</span> exp) <span class="hljs-number">1</span>)<br>(<span class="hljs-name"><span class="hljs-built_in">else</span></span> (<span class="hljs-name"><span class="hljs-built_in">if</span></span> (<span class="hljs-name"><span class="hljs-built_in">even?</span></span> exp)<br>`(square ,(pow-expr base (/ exp <span class="hljs-number">2</span>)))<br>`(* ,base ,(pow-expr base (- exp <span class="hljs-number">1</span>)))<br>))<br>)<br>)<br><br>(<span class="hljs-name">define-macro</span> (<span class="hljs-name">repeat</span> n expr)<br>  `(repeated-call ,n (lambda() ,expr)))<br><br><span class="hljs-comment">; Call zero-argument procedure f n times and return the final result.</span><br>(<span class="hljs-name"><span class="hljs-built_in">define</span></span> (<span class="hljs-name">repeated-call</span> n f)<br>  (<span class="hljs-name"><span class="hljs-built_in">if</span></span> (<span class="hljs-name"><span class="hljs-built_in">=</span></span> n <span class="hljs-number">1</span>)<br>      (<span class="hljs-name">f</span>)<br>      (<span class="hljs-name"><span class="hljs-built_in">begin</span></span> (<span class="hljs-name">f</span>) (<span class="hljs-name">repeated-call</span> (<span class="hljs-name"><span class="hljs-built_in">-</span></span> n <span class="hljs-number">1</span>) f) )))<br></code></pre></td></tr></table></figure>
+
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><p>difference between “declarative(sql)” and “imperative(Python &amp; Scheme)”: SQL focuses on the <strong>result</strong>, while Python and Scheme focus on the <strong>process</strong></p>
+<h3 id="SQL-syntax"><a href="#SQL-syntax" class="headerlink" title="SQL syntax:"></a>SQL syntax:</h3><p><code>SELECT</code> includes a comma-separated list of column description.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> [expression] <span class="hljs-keyword">AS</span> [name], [expression] <span class="hljs-keyword">AS</span> [name] <span class="hljs-comment">--SELECT [columns] </span><br><span class="hljs-keyword">SELECT</span> [columns] <span class="hljs-keyword">FROM</span> [<span class="hljs-keyword">table</span>] <span class="hljs-keyword">WHERE</span> [<span class="hljs-keyword">condition</span>] <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> [<span class="hljs-keyword">order</span>];<br></code></pre></td></tr></table></figure>
+<p>Selecting literals creates new tables.</p>
+<p>Arithmetic example:<br><img src="/2025/08/05/CS61A-casual-notes/image.png" srcset="/img/loading.gif" lazyload alt="exp of ari"></p>
+<p><code>JOIN</code> or comma is used to join two tables.<br><img src="/2025/08/05/CS61A-casual-notes/image-1.png" srcset="/img/loading.gif" lazyload alt="join"><br>what happens when <code>JOIN</code>:<br><img src="/2025/08/05/CS61A-casual-notes/image-2.png" srcset="/img/loading.gif" lazyload alt="join detail"><br>Combos of rows.<br>Implicit syntax: comma or <code>JOIN</code><br>Explicit syntax: </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">FROM</span> [<span class="hljs-keyword">table</span>] <span class="hljs-keyword">JOIN</span><span class="hljs-operator">/</span>comma(,) [<span class="hljs-keyword">table</span>] <span class="hljs-keyword">ON</span> [conditions] <br></code></pre></td></tr></table></figure>
+<p>What if the tables share some column names?<br>Use Aliases or Dot Expressions to distinguish them<br>example from lab12:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE TABLE</span> sharing <span class="hljs-keyword">AS</span><br>  <span class="hljs-keyword">SELECT</span> a.course, <span class="hljs-built_in">count</span>(<span class="hljs-keyword">distinct</span> a.hall) <span class="hljs-keyword">from</span> finals <span class="hljs-keyword">as</span> a, finals <span class="hljs-keyword">as</span> b <span class="hljs-keyword">where</span> a.hall<span class="hljs-operator">=</span>b.hall <span class="hljs-keyword">and</span> a.course <span class="hljs-operator">&lt;&gt;</span> b.course <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> a.course;<br></code></pre></td></tr></table></figure>
+<p>String expressions: use <code>||</code> to combine the strings</p>
+<p>Aggregate function and group-by example from hw10:<br>We want to create a table that contains the height range (defined as the difference between maximum and minimum height) of all dogs that share a fur type. However, we’ll only consider fur types where each dog with that fur type is within 30% of the average height of all dogs with that fur type; we call this the low variance criterion.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> fur, <span class="hljs-built_in">max</span>(height)<span class="hljs-operator">-</span><span class="hljs-built_in">min</span>(height) <span class="hljs-keyword">from</span> dogs <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> fur <span class="hljs-keyword">having</span> <span class="hljs-built_in">min</span>(height)<span class="hljs-operator">&gt;=</span><span class="hljs-number">0.7</span><span class="hljs-operator">*</span><span class="hljs-built_in">avg</span>(height) <span class="hljs-keyword">and</span> <span class="hljs-built_in">max</span>(height)<span class="hljs-operator">&lt;=</span><span class="hljs-number">1.3</span><span class="hljs-operator">*</span><span class="hljs-built_in">avg</span>(height);<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CS/" class="category-chain-item">CS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Programming-and-Algorithms/" class="print-no-link">#Programming and Algorithms</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CS61A casual notes</div>
+      <div>https://murasame-mio-misaki.github.io/2025/08/05/CS61A-casual-notes/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Miss.M</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 5, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/15/Blog/" title="How was this blog built">
+                        <span class="hidden-mobile">How was this blog built</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
