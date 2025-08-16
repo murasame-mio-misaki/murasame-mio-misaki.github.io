@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>IDA Skills</title>
+    <link href="/2025/08/17/About-Chinese-Character-in-IDA-Pro/"/>
+    <url>/2025/08/17/About-Chinese-Character-in-IDA-Pro/</url>
+    
+    <content type="html"><![CDATA[<p>一些IDA相关技巧的帖子链接</p><ul><li><p>中文显示问题：<a href="https://www.52pojie.cn/thread-648679-1-1.html">https://www.52pojie.cn/thread-648679-1-1.html</a></p></li><li><p>简单IDA Python：<a href="https://www.cnblogs.com/iBinary/p/14642662.html">https://www.cnblogs.com/iBinary/p/14642662.html</a></p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Miscellaneous things</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>IDA Skills</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>CS61A casual notes</title>
     <link href="/2025/08/05/CS61A-casual-notes/"/>
     <url>/2025/08/05/CS61A-casual-notes/</url>
