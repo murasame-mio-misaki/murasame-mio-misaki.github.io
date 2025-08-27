@@ -1,0 +1,1049 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Miss.M">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="年初随便写的+搬的一点东西，贴在这里。图片来自星盟安全团队的pwn教程。 binaryLinux用文件头识别文件而非后缀名。 文件存在磁盘中，运行时载入内存。 解释型语言不需要编译出可执行文件，用解释器解释后交给CPU执行。 printf(“%p”,xxx)打印地址。 c compile简要过程 graph LR 	A[&quot;test.c(src)&quot;] 	B[&quot;test.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="New Pwn">
+<meta property="og:url" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/index.html">
+<meta property="og:site_name" content="Miss.M">
+<meta property="og:description" content="年初随便写的+搬的一点东西，贴在这里。图片来自星盟安全团队的pwn教程。 binaryLinux用文件头识别文件而非后缀名。 文件存在磁盘中，运行时载入内存。 解释型语言不需要编译出可执行文件，用解释器解释后交给CPU执行。 printf(“%p”,xxx)打印地址。 c compile简要过程 graph LR 	A[&quot;test.c(src)&quot;] 	B[&quot;test.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250208214908605-1410877441.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250208223224788-686866354.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250208223841687-963906141.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250208224726635-79418734.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/image-20250827105513388.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250209174900305-710147487.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250209193808793-908492273.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250209194232443-639590457.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250209194557858-612094562.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250209195055473-1544261024.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250209200716854-62716620.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250209201045379-1610210160.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250209204405714-474683409.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250213104824854-2020922544.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250213204210976-1837842365.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250214131538129-1645601842.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250214163355814-201771566.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250214224729189-174960676.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250216113359742-635481886.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250216115714310-1691751930.png">
+<meta property="article:published_time" content="2025-07-23T12:57:02.000Z">
+<meta property="article:modified_time" content="2025-08-27T02:55:18.989Z">
+<meta property="article:author" content="Miss.M">
+<meta property="article:tag" content="Knowledge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250208214908605-1410877441.png">
+  
+  
+  
+  <title>New Pwn - Miss.M</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"murasame-mio-misaki.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Miss.M&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/catstyping.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="New Pwn"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-23 20:57" pubdate>
+          July 23, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">New Pwn</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>年初随便写的+搬的一点东西，贴在这里。图片来自星盟安全团队的pwn教程。</p>
+<h2 id="binary"><a href="#binary" class="headerlink" title="binary"></a>binary</h2><p>Linux用文件头识别文件而非后缀名。</p>
+<p>文件存在磁盘中，运行时载入内存。</p>
+<p>解释型语言不需要编译出可执行文件，用解释器解释后交给CPU执行。</p>
+<p>printf(“%p”,xxx)打印地址。</p>
+<p><strong>c compile简要过程</strong></p>
+<pre><code class=" mermaid">graph LR
+	A[&quot;test.c(src)&quot;]
+	B[&quot;test.s(asm)&quot;]
+	C[&quot;test.o(obj)&quot;]
+	D[&quot;a.out&quot;]
+	A--编译--&gt;B--汇编--&gt;C--链接--&gt;D
+</code></pre>
+
+<p><strong>可执行文件</strong></p>
+<p>linux使用ll查看权限:-rwx</p>
+<p>chmod提权 </p>
+<p>Windows : PE:</p>
+<ul>
+<li>可执行程序.exe</li>
+<li>动态链接库.dll</li>
+<li>静态链接库.lib</li>
+</ul>
+<p>Linux: &#x3D;&#x3D;ELF&#x3D;&#x3D;:</p>
+<ul>
+<li>可执行程序.out</li>
+<li>动态链接库.so</li>
+<li>静态链接库.a</li>
+</ul>
+<p><strong>ELF</strong>结构</p>
+<pre><code class=" mermaid">graph LR
+A[&quot;test.elf&quot;]
+B[&quot;header(1/2)&quot;]
+C[&quot;sections&quot;]
+D[&quot;header(2/2)&quot;]
+E[&quot;ELF header(ELF文件头总结构)&quot;]
+F[&quot;Program Header table(程序头表/段表)&quot;]
+G[&quot;Code&quot;]
+H[&quot;Data&quot;]
+I[&quot;Section&#x27;s names&quot;]
+J[&quot;Section Header Table(节头表)&quot;]
+A--&gt;B &amp; C &amp; D
+B--&gt;E &amp; F
+C--&gt;G &amp; H &amp; I
+D--&gt;J
+</code></pre>
+
+<p><strong>磁盘中的ELF和内存中的ELF(进程内存映像)</strong></p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250208214908605-1410877441.png" srcset="/img/loading.gif" lazyload></p>
+<p>写入数据总是从低地址向高地址写。</p>
+<p><strong>虚拟内存</strong></p>
+<p>实模式(可以直接操作物理地址)–&gt;保护模式(用户只能访问虚拟地址，间接地访问物理地址)</p>
+<pre><code class=" mermaid">graph LR
+	A[&quot;用户&quot;]
+	B[&quot;OS&quot;]
+	C[&quot;物理内存&quot;]
+	A--系统调用--&gt;B--&gt;C
+</code></pre>
+
+<p>物理内存虚拟内存分配：</p>
+<pre><code class=" mermaid">graph TD
+  A[&quot;操作系统内核空间(共享)&quot;] 
+  B[&quot;进程1&quot;]
+  C[&quot;进程n(独立)&quot;]
+  A--&gt;B &amp; ... &amp; C
+</code></pre>
+
+<p>虚拟内存mmap段中<strong>动态链接库</strong>仅在物理内存中装载一份。</p>
+<p>虚拟内存地址以字节编码，常以hex表示。</p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250208223224788-686866354.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250208223841687-963906141.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>段(segment)与节(section)</strong></p>
+<p>段视图用于进程的内存区域的 rwx权限划分</p>
+<p>节视图用于ELF文件编译链接时与在磁盘上存储时的文件结构的组织。</p>
+<p>代码段(Text Seg)包含代码和只读数据:</p>
+<ul>
+<li>&#x3D;&#x3D;.text节&#x3D;&#x3D;</li>
+<li>.rodata节</li>
+<li>.hash节</li>
+<li>…</li>
+<li>&#x3D;&#x3D;.plt节(解析动态库)&#x3D;&#x3D;</li>
+<li>.rel.got节</li>
+</ul>
+<p>数据段(Data segment)包含可读可写数据:</p>
+<ul>
+<li><p>.data节</p>
+</li>
+<li><p>.got节</p>
+</li>
+<li><p>&#x3D;&#x3D;.got.plt节(保存动态链接函数地址)&#x3D;&#x3D;</p>
+</li>
+<li><p>&#x3D;&#x3D;.bss节(不在磁盘占用空间，仅在内存占用，如未初始化的全局变量)&#x3D;&#x3D;</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<p><strong>程序数据在内存中的组织方式简例</strong></p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250208224726635-79418734.png" srcset="/img/loading.gif" lazyload></p>
+<p>函数内局部变量存放在栈，形参不映射，32位形参压栈，64位用寄存器”rsi,rbi…”存。</p>
+<p> <strong>大小端序</strong></p>
+<p>低位放低地址，高位放高地址。</p>
+<p><strong>程序的装载与进程的执行</strong></p>
+<p><img src="/2025/07/23/New-Pwn/image-20250827105513388.png" srcset="/img/loading.gif" lazyload alt="image-20250827105513388"></p>
+<p><strong>部分寄存器功能</strong></p>
+<ul>
+<li>RIP(存放下一条执行指令的地址)</li>
+<li>RSP(存放当前栈帧的栈顶地址)</li>
+<li>RBP(存放当前栈帧的栈底地址)</li>
+<li>RAX(通用寄存器存放函数返回值)</li>
+</ul>
+<p><strong>静态链接的程序的执行过程</strong></p>
+<pre><code class=" mermaid">graph LR
+  A[&quot;$./binary&quot;]
+  B[&quot;fork()&quot;]
+  C[&quot;execve&quot;]
+  D[&quot;kernel&quot;]
+  E[&quot;_start&quot;]
+  F[&quot;main()&quot;]
+  A--&gt;B--&gt;C--user to kernel--&gt;D--kernel to user--&gt;E--&gt;F
+</code></pre>
+
+<p>fork():复制自身内存创建新进程</p>
+<p>_start:准备执行环境</p>
+<p><strong>动态链接</strong></p>
+<pre><code class=" mermaid">graph LR
+  A[&quot;kernel&quot;]
+  B[&quot;ld.so&quot;]
+  C[&quot;_start&quot;]
+  D[&quot;__libc_start_main()&quot;]
+  E[&quot;Init()&quot;]
+  A--&gt;B--&gt;C--&gt;D--&gt;E--&gt;...
+</code></pre>
+
+<p><strong>asm</strong></p>
+<p>中括号[]:取括号内地址处的值</p>
+<p>lea:取地址发送给指定寄存器</p>
+<p>push:目标值压栈，SP-1</p>
+<p>pop:将栈顶值弹出值指定位置，SP+1</p>
+<p>leave:回复父栈帧，相当于<code>mov esp,ebp   pop ebp</code>，进行栈顶和栈底指针的迁移，从而完成整个栈帧的复原。</p>
+<p>ret:相当于<code>pop rip</code>，指令执行指针返回到父函数的下一条指令处。</p>
+<p>xor eax,eax:清空eax</p>
+<p><strong>intel AT&amp;T</strong></p>
+<p>区别不大，intel 被操作数在前，AT&amp;T操作数在前</p>
+<h2 id="stack-overflow"><a href="#stack-overflow" class="headerlink" title="stack overflow"></a>stack overflow</h2><p>函数调用栈是一段连续的区域(高地址向低地址增长)，用来保存函数运行时的状态信息，包括函数参数与局部变量等。</p>
+<p>调用者caller的状态被保存在栈顶，被调用者callee的状态被保存在栈底。</p>
+<p><strong>函数调用栈的工作原理(x86)</strong></p>
+<p><em>call xxx不仅是jmp至目标函数，还将下一条指令的地址自动压入栈。</em></p>
+<p>例如下面简单caller与callee的执行步骤:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">callee</span><span class="hljs-params">(<span class="hljs-type">int</span> a,<span class="hljs-type">int</span> b,<span class="hljs-type">int</span> c)</span><br>&#123;<br>    <span class="hljs-type">int</span> ret=a+b+c;<br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br><span class="hljs-type">int</span> <span class="hljs-title function_">caller</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>    <span class="hljs-type">int</span> ret;<br>    ret=callee(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);<br>    ret+=<span class="hljs-number">4</span>;<br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<img src="/2025/07/23/New-Pwn/3527310-20250209174900305-710147487.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+<p>首先，caller中<code>push %ebp; mov %esp,%ebp</code>使得栈底存储caller的caller的栈底地址，之后让esp与ebp对齐。<code>sub %0x10,%esp</code>将esp向低地址偏移16，为后续变量留出空间:</p>
+<img src="/2025/07/23/New-Pwn/3527310-20250209193808793-908492273.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
+
+<p>随后，把需要操作的三个数3，2，1逆序地压入栈中，开始<code>call</code>callee，eip转向callee的0地址，同时将下一条指令也就是23处的地址压入栈中:</p>
+<img src="/2025/07/23/New-Pwn/3527310-20250209194232443-639590457.png" srcset="/img/loading.gif" lazyload style="zoom:67%;">
+
+<p>进入callee后，用与caller相同的方法在栈中保存caller的基地址，同时将ebp与esp对齐，完成栈迁移。同时由于callee没有再用到局部变量，所以直接使用寄存器，对原栈中的数据进行求和操作并存储在eax存储器:</p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250209194557858-612094562.png" srcset="/img/loading.gif" lazyload></p>
+<p>callee操作完成后，将栈顶的%ebp in caller弹出赋给ebp，将ebp还原到caller栈底，随后ret，进入caller的下一条指令:</p>
+<img src="/2025/07/23/New-Pwn/3527310-20250209195055473-1544261024.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
+
+<p>随后<code>add $0xc,%esp</code>将原来的三个数据”销毁”，栈顶指针指向3个值以前，随后<code>mov  %eax,-0x4(%ebp)</code>将callee计算的结果存在int ret处，再进行<code>ret+=4</code>的计算，存储到eax中。</p>
+<img src="/2025/07/23/New-Pwn/3527310-20250209200716854-62716620.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
+
+<p>随后<code>leave</code>+<code>ret</code>再次完成栈迁移并回到caller的caller(祖父)处，完成调用:</p>
+<img src="/2025/07/23/New-Pwn/3527310-20250209201045379-1610210160.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+<p><strong>栈溢出攻击</strong></p>
+<p>攻击程序的目的：拿到shell控制服务器。当函数执行内部指令时无法获得程序控制权，只有当发生函数调用或结束函数调用时，程序控制权会在函数状态之间跳转，此时才可能修改函数状态。而控制程序最关键的部分在于eip&#x2F;rip寄存器，因此我们的目的就是让eip&#x2F;rip载入攻击函数的地址。</p>
+<p>当函数结束调用执行ret时，caller的返回地址会被传给eip，因此我们可以写入溢出数据使得攻击指令的地址覆盖原来的返回地址，就可以让我们想要的地址载入eip。</p>
+<p>我们可以在溢出数据中包含攻击指令，也可以在内存其他位置寻找可用的攻击指令，然后将返回地址覆盖为后门函数。</p>
+<p><strong>buffer overflow</strong></p>
+<p>缓冲区写入超长数据造成溢出。</p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250209204405714-474683409.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><p><strong>IDA Pro</strong>:静态分析</p>
+<p><strong>pwntools</strong>:python辅助攻击模块</p>
+<p><strong>pwndbg</strong>:动态调试</p>
+<p><strong>checksec</strong>:检查保护</p>
+<p><strong>ROPgadget</strong>:寻找获取ROP</p>
+<p><strong>one_gadget</strong>:寻找获取shell</p>
+<h3 id="IDA-Pro"><a href="#IDA-Pro" class="headerlink" title="IDA Pro"></a>IDA Pro</h3><p><strong>Tips:</strong></p>
+<p>function window中，写死的函数用白色标识，动态链接的表项用粉色表示。</p>
+<p>显示机器码:Option–&gt;Number of opcode bytes(non-graph)设定长度。</p>
+<p>C与Asm对照:Ctrl+A全选–&gt;Copy to assembly </p>
+<h3 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h3><ul>
+<li><p>调用库：<code>from pwn import *</code></p>
+</li>
+<li><p>设置io变量：本地：<code>io=process(&quot;./test&quot;)</code>；远程：<code>io=remote(&quot;localhost&quot;,port)</code></p>
+</li>
+<li><p>接受字符串：接收一行：<code>io.recvline()</code>；接收所有：<code>io.recv()</code></p>
+</li>
+<li><p>发送数据：<code>io.send(xxx)</code>，括号中必须是字节流，若是整数用p32()&#x2F;p64()转化，字节串b’ ‘包裹，用“+”连接。不可见字节可用”\x”发送；<code>io.sendline(xxx)</code>，在末尾加<code>\n</code>。</p>
+</li>
+<li><p>进入交互：<code>io.interactive()</code></p>
+</li>
+</ul>
+<p>linux自带base64编码:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> xxx | <span class="hljs-built_in">base64</span> -d<br></code></pre></td></tr></table></figure>
+
+<h3 id="pwndbg"><a href="#pwndbg" class="headerlink" title="pwndbg"></a>pwndbg</h3><p>基本命令：</p>
+<ul>
+<li><p>进入调试：<code>gdb 程序名</code></p>
+</li>
+<li><p>下断点：<code>b *地址(0x形式)</code>  <code>b 函数名</code>   取消断点：<code>d 断点序号 </code></p>
+</li>
+<li><p>运行：<code>r</code>  步进：<code>s</code>  步过：<code>n</code></p>
+</li>
+<li><p>栈视图：<code>stack x</code> 显示栈的x项<br>窗口：</p>
+</li>
+<li><p>虚拟内存分布窗口：<code>vmmap</code></p>
+</li>
+<li><p>Register寄存器</p>
+</li>
+<li><p>Disasm反汇编窗口</p>
+</li>
+<li><p>Stack栈窗口，显示esp和ebp，低地址在上，数据从上向下写</p>
+</li>
+<li><p>若一段数据（如栈中）存放了指针，则会显示指针指向的内容</p>
+</li>
+</ul>
+<p>程序在gdb中显示的地址与真实地址可能不符，但偏移一定是正确的。</p>
+<h2 id="ret2text"><a href="#ret2text" class="headerlink" title="ret2text"></a>ret2text</h2><p>利用程序本身的后门函数。</p>
+<h3 id="buuctf-rip"><a href="#buuctf-rip" class="headerlink" title="buuctf rip"></a>buuctf rip</h3><p>payload:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-number">1</span> payload=<span class="hljs-number">23</span>*<span class="hljs-string">b&#x27;A&#x27;</span>+p64(<span class="hljs-number">0x401186</span>+<span class="hljs-number">1</span>)<br><span class="hljs-number">2</span> payload=<span class="hljs-number">23</span>*<span class="hljs-string">b&#x27;A&#x27;</span>+p64(<span class="hljs-number">0x401016</span>)+p64(<span class="hljs-number">0x401186</span>)+p64(<span class="hljs-number">0</span>)  <span class="hljs-comment">#0x401016为ret</span><br><span class="hljs-number">3</span> payload=<span class="hljs-number">15</span>*<span class="hljs-string">b&#x27;A&#x27;</span>+p64(<span class="hljs-number">0x401186</span>)  <span class="hljs-comment">#仅在远端可以打通</span><br></code></pre></td></tr></table></figure>
+<p>其中<code>0x401186</code>为系统调用shell后门函数的位置。</p>
+<p>需要+1的原因或执行ret的原因：ubuntu18以上的64位程序，system需要进行栈对齐，所以应跳过一项栈指令，这样才能使得栈对齐。</p>
+<p>详细：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ZIKH26/articles/15996874.html">关于ubuntu18版本以上调用64位程序中的system函数的栈对齐问题 - ZikH26 - 博客园</a></p>
+<h2 id="ret2shellcode"><a href="#ret2shellcode" class="headerlink" title="ret2shellcode"></a>ret2shellcode</h2><p>由于程序不太可能真的给出后门函数，所以需要自己构造shellcode。</p>
+<p>初期将shellcode直接写入栈缓冲区，开启NX保护后栈缓冲区不可执行，故改为将shellcode向bss中写入或者向堆中写入，并用mprotect赋予其可执行权限。</p>
+<p>如何获得shellcode?使用pwntools的shellcraft和asm模块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">asm(shellcraft.sh())<br></code></pre></td></tr></table></figure>
+
+<p>可以获得调用shell的shellcode硬编码。如果是64位下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">context.arch=<span class="hljs-string">&quot;amd64&quot;</span>  <span class="hljs-comment">#设置上下文</span><br>shellcraft.amd64.sh()<br></code></pre></td></tr></table></figure>
+
+<p>w权限和x权限理应不能同时出现。</p>
+<p>由于ASLR的存在，所以即使栈段可执行，我们也不知道栈的真实位置，所以我们并不知道我们写入数据的真实位置。但是Text&#x2F;Data&#x2F;Bss都可以找到，因为他们是ELF的固定内容，若PIE未开启，我们就可以定位到Bss的位置。因此我们可以将ret的位置覆盖为Bss的位置，并在Bss中写入shellcode，这样就可以使得函数ret到shellcode，劫持服务器。</p>
+<p>某个ret2shellcode 32位题目的payload，输入会被拷贝到全局变量buf中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">buf=... <span class="hljs-comment">#某个全局变量的地址</span><br>sc=asm(shellcraft.sh())<br>payload=sc.ljust(<span class="hljs-number">112</span>,<span class="hljs-string">b&#x27;A&#x27;</span>)+p32(buf) <span class="hljs-comment">#ljust用于向右填充数据至指定长度，这里填垃圾数据至112位完成栈溢出</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="protect"><a href="#protect" class="headerlink" title="protect"></a>protect</h2><h3 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h3><p>栈不可执行。</p>
+<h3 id="canary"><a href="#canary" class="headerlink" title="canary"></a>canary</h3><img src="/2025/07/23/New-Pwn/3527310-20250213104824854-2020922544.png" srcset="/img/loading.gif" lazyload style="zoom:50%;">
+
+<p>如图，打开canary保护的程序创建栈帧时，会在ebp的低地址的位置放置一段canary随机值，销毁栈帧时会首先检查canary是否被更改，如果更改那么程序直接崩溃退出。</p>
+<h3 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h3><p>随机化栈，共享库，堆。</p>
+<h3 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h3><p>随机化ELF文件本体。</p>
+<h2 id="ROP返回导向编程"><a href="#ROP返回导向编程" class="headerlink" title="ROP返回导向编程"></a>ROP返回导向编程</h2><h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>系统调用：OS给User的编程接口，是提供访问操作系统所管理的底层硬件的接口。本质上是一些内核函数代码，以规范的方式驱动硬件。x86通过int 0x80指令进行系统调用，amd64通过syscall进行系统调用。</p>
+<p>例如x86中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov eax,0xb<br>mov ebx,[&quot;/bin/sh&quot;]<br>mov ecx,0<br>mov edx,0<br>int 0x80<br></code></pre></td></tr></table></figure>
+
+<p>以上调用可以执行<code>execve(&quot;bin/sh&quot;,NULL,NULL)</code></p>
+<h3 id="动态链接库"><a href="#动态链接库" class="headerlink" title="动态链接库"></a>动态链接库</h3><p>ldd查看可执行程序所用到的动态链接库。</p>
+<p>调用库函数如printf时，实际的函数实现在libc文件中，编译时将其载入shared library，程序调用时指向这个函数。</p>
+<h3 id="Ret2syscall-ROP"><a href="#Ret2syscall-ROP" class="headerlink" title="Ret2syscall-ROP"></a>Ret2syscall-ROP</h3><p>例如我们想执行<code>execve(&quot;bin/sh&quot;,NULL,NULL)</code>这段指令以拿到shell，可程序中并没有现成的连续指令。但我们可以用组成该段程序的代码片段来组成我们想要的指令。</p>
+<img src="/2025/07/23/New-Pwn/3527310-20250213204210976-1837842365.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;">
+
+<p>栈溢出后，溢出数据形成了ret-call-ret…链，从而形成了整个指令。</p>
+<p>寻找这样的组件(gadget)需要ROPgadget工具，用例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ROPgadget --binary test --only &quot;pop|ret&quot; | grep eax<br></code></pre></td></tr></table></figure>
+
+<p>该命令可以找到二进制程序中的<code>pop eax ;ret</code>gadget。</p>
+<h3 id="ret2syscall"><a href="#ret2syscall" class="headerlink" title="ret2syscall"></a>ret2syscall</h3><p>确认没有后门函数后，准备打rop链。</p>
+<p>首先用ROPgadget工具寻找<code>pop ret</code>gedget，组合gedget，先填垃圾数据到覆盖esp&#x2F;rsp，然后将构造好的gedget和数据依次写入payload，使用pwntools的<code>flat</code>函数可以将列表中的每一项转化为字节型，不足1字长的会补全。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">payload=flat([<span class="hljs-string">b&#x27;A&#x27;</span>*<span class="hljs-number">112</span>,pop_eax_ret,<span class="hljs-number">0xb</span>,pop_edx_ecx_ebx_ret,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,bin_sh,int_0x80])<br></code></pre></td></tr></table></figure>
+
+<p>pwntools创建elf文件对象以及相关方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">elf=ELF(&quot;./test&quot;)<br>elf.search(b&quot;/bin/sh&quot;)  #寻找字节型数据<br>next(...) #下一个地址<br>elf.got[&quot;puts&quot;] #返回puts函数在got表中表项的地址<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="动态链接过程"><a href="#动态链接过程" class="headerlink" title="动态链接过程"></a>动态链接过程</h3><p>静态链接和动态链接区别：静态链接编译时会将库函数全部写入文件，而动态链接只是做标识，表示将要用到某个库，因此静态链接文件要比动态链接文件大很多。 </p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250214131538129-1645601842.png" srcset="/img/loading.gif" lazyload></p>
+<p>调用库函数foo的过程：</p>
+<ul>
+<li><p>进程首次调用foo时，跳转到.plt中的foo表项</p>
+</li>
+<li><p>.plt的foo表项立即跳转至.got.plt的foo表项，由于此时got表中目前没有foo的真实位置，因此跳回.plt</p>
+</li>
+<li><p>向栈中压入相关参数，为后续解析函数做好准备，随后<code>jmp</code>到got对应位置进行解析。</p>
+</li>
+<li><p>__dl_runtime_resolve函数解析foo的真实地址，填入.got.plt。</p>
+</li>
+<li><p>第二次及后续调用foo时，到plt-&gt;got后，由于第一次调用时已经填入了foo的真正地址，所以能够直接到达foo的真实地址。</p>
+</li>
+</ul>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250214163355814-201771566.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>pwndbg</strong></p>
+<p><code>x/nx 地址</code> 显示地址的内容，n填要看的长度。</p>
+<p><code>start</code>进入main函数第一行或进入程序入口。</p>
+<p><code>backtrace</code>显示函数调用栈，呈现函数调用的父子关系。</p>
+<p><code>return</code>退出当前函数</p>
+<h3 id="ret2libc"><a href="#ret2libc" class="headerlink" title="ret2libc"></a>ret2libc</h3><p>动态链接的文件往往不能找到足够的gadget，因此我们的思路改为将rop链导向libc。</p>
+<p>例如，程序中没有直接system(“&#x2F;bin&#x2F;sh”)，但是出现了system函数，这就会在程序plt表项中添加属于system()库函数的一项。因此只要我们将程序流劫持到system()plt表项处，就可以调用该函数。再传入参数”&#x2F;bin&#x2F;sh”即可。</p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250214224729189-174960676.png" srcset="/img/loading.gif" lazyload></p>
+<p>got表项与实际函数的关系：</p>
+<pre><code class=" mermaid">graph LR
+A[&quot;system@got&quot;]
+B[&quot;&amp;system&quot;]
+C[&quot;code of system in libc&quot;]
+A--&gt;B--&gt;C
+</code></pre>
+
+<p>因此我们要跳转到的是<code>&amp;system</code>而不是<code>system@got</code></p>
+<p><img src="/2025/07/23/New-Pwn/3527310-20250216113359742-635481886.png" srcset="/img/loading.gif" lazyload alt="image-20250216113355817"></p>
+<p>ret2shellcode，shellcode写入栈，nop滑梯应对ASLR：在shellcode下方填入足够长的nop链，指针指向确定的位置，这样大概率可以指向nop链的中间某个位置，这样程序就会一路执行nop到shellcode。</p>
+<img src="/2025/07/23/New-Pwn/3527310-20250216115714310-1691751930.png" srcset="/img/loading.gif" lazyload alt="image-20250216115710371" style="zoom: 50%;">
+
+<p>为什么参数要填到上面两个字长的位置？因为<code>system,exit</code>的第一条指令总是<code>push ebp</code>，此时ebp会占一个字长，那么函数想要调用传入的参数，就要向上数两个字长跳过caller’s ebp和retaddress才能找到参数。有时调用更多函数（3个及以上）的时候需要使用<code>pop_ret</code>gadget来构造。题目中没有给”&#x2F;bin&#x2F;sh”时，还需要调用read将其读入内存。</p>
+<p>如何找到库函数的地址？回顾动态链接首次调用system的过程：</p>
+<pre><code class=" mermaid">graph TD
+A[&quot;call system&quot;]
+B[&quot;system@plt&quot;]
+C[&quot;Resolver&quot;]
+D[&quot;system@got&quot;]
+E[&quot;system@glibc&quot;]
+A--&gt;B--1--&gt;D--2--&gt;B--3--&gt;C--4--&gt;D--&gt;E
+</code></pre>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Pwn/" class="category-chain-item">Pwn</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Knowledge/" class="print-no-link">#Knowledge</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>New Pwn</div>
+      <div>https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Miss.M</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 23, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/08/05/CS61A-casual-notes/" title="CS61A casual notes">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CS61A casual notes</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/15/Blog/" title="How was this blog built">
+                        <span class="hidden-mobile">How was this blog built</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
