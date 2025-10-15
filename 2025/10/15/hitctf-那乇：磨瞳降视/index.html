@@ -1,0 +1,751 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Miss.M">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="H^3 CTF 哈工大号称是给新生做的平台，但题目抽象的没边了…… 记录一道electron平台下的题目，真是一场酣畅淋漓的持史。 参考了这位大手的文章electron逆向小记 - SGSG’s Blog AnalysisElectron开发的程序，首先找resources的app.asar归档文件，然后 1asar e app.asar app  解包出项目相关源码，删去app.asar，就可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hitctf-那乇：磨瞳降视">
+<meta property="og:url" content="https://murasame-mio-misaki.github.io/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/index.html">
+<meta property="og:site_name" content="Miss.M">
+<meta property="og:description" content="H^3 CTF 哈工大号称是给新生做的平台，但题目抽象的没边了…… 记录一道electron平台下的题目，真是一场酣畅淋漓的持史。 参考了这位大手的文章electron逆向小记 - SGSG’s Blog AnalysisElectron开发的程序，首先找resources的app.asar归档文件，然后 1asar e app.asar app  解包出项目相关源码，删去app.asar，就可以">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE2025.10.15.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE2025.10.15-17605325284092.png">
+<meta property="article:published_time" content="2025-10-15T11:45:38.000Z">
+<meta property="article:modified_time" content="2025-10-15T13:04:05.208Z">
+<meta property="article:author" content="Miss.M">
+<meta property="article:tag" content="Practice">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murasame-mio-misaki.github.io/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE2025.10.15.png">
+  
+  
+  
+  <title>hitctf-那乇：磨瞳降视 - Miss.M</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"murasame-mio-misaki.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Miss.M&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/catstyping.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="hitctf-那乇：磨瞳降视"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-15 19:45" pubdate>
+          October 15, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.9k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">hitctf-那乇：磨瞳降视</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><a target="_blank" rel="noopener" href="https://h3.hitctf.cn/challenge">H^3 CTF</a> 哈工大号称是给新生做的平台，但题目抽象的没边了……</p>
+<p>记录一道electron平台下的题目，真是一场酣畅淋漓的持史。</p>
+<p>参考了这位大手的文章<a target="_blank" rel="noopener" href="https://sgsgsama.github.io/ctf/re-hints/electron-devtool/">electron逆向小记 - SGSG’s Blog</a></p>
+<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>Electron开发的程序，首先找<code>resources</code>的<code>app.asar</code>归档文件，然后</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">asar e app.asar app<br></code></pre></td></tr></table></figure>
+
+<p>解包出项目相关源码，删去<code>app.asar</code>，就可以直接修改<code>app</code>文件夹下的源码来影响业务逻辑。</p>
+<p><code>main.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./module/index.js&quot;</span>);<br><span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./main/main&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>去找下<code>./module/index.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> addon = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./jsnz.node&quot;</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Module</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;module&quot;</span>);<br><br><span class="hljs-title class_">Module</span>.<span class="hljs-property">_extensions</span>[<span class="hljs-string">&quot;.jsnz&quot;</span>] = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-variable language_">module</span>, filename</span>) =&gt;</span> &#123;<br>  addon.<span class="hljs-title function_">run</span>(<span class="hljs-variable language_">module</span>, <span class="hljs-built_in">require</span>, filename);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>加载同目录下的node程序，遇到后缀<code>.jsnz</code>全部<code>addon.run</code>自定义加载。然后<code>./main/main</code></p>
+<p>应该就是解密后的内容。到module文件夹看一下，三个<code>.jsnz</code>都是加密的，暂时还不知道逻辑是啥。</p>
+<p><code>preloader.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> &#123; contextBridge, ipcRenderer &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;electron&quot;</span>);<br><br><span class="hljs-keyword">const</span> electronAPI = &#123;<br>  <span class="hljs-attr">getMetadata</span>: <span class="hljs-function">() =&gt;</span> ipcRenderer.<span class="hljs-title function_">invoke</span>(<span class="hljs-string">&quot;metadata:get&quot;</span>),<br>  <span class="hljs-attr">getProgress</span>: <span class="hljs-function">() =&gt;</span> ipcRenderer.<span class="hljs-title function_">invoke</span>(<span class="hljs-string">&quot;progress:get&quot;</span>),<br>  <span class="hljs-attr">updateProgress</span>: <span class="hljs-function">(<span class="hljs-params">payload</span>) =&gt;</span> ipcRenderer.<span class="hljs-title function_">invoke</span>(<span class="hljs-string">&quot;progress:update&quot;</span>, payload),<br>  <span class="hljs-attr">getVideo</span>: <span class="hljs-function">() =&gt;</span> ipcRenderer.<span class="hljs-title function_">invoke</span>(<span class="hljs-string">&quot;video:get&quot;</span>),<br>  <span class="hljs-attr">heartbeat</span>: <span class="hljs-function">(<span class="hljs-params">payload</span>) =&gt;</span> ipcRenderer.<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;progress:heartbeat&quot;</span>, payload),<br>  <span class="hljs-attr">onProgressUpdated</span>: <span class="hljs-function">(<span class="hljs-params">callback</span>) =&gt;</span> ipcRenderer.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;progress:updated&quot;</span>, <span class="hljs-function">(<span class="hljs-params">_, data</span>) =&gt;</span> <span class="hljs-title function_">callback</span>(data)),<br>  <span class="hljs-attr">getPage</span>: <span class="hljs-function">() =&gt;</span> ipcRenderer.<span class="hljs-title function_">invoke</span>(<span class="hljs-string">&quot;page:get&quot;</span>),<br>&#125;;<br><br>contextBridge.<span class="hljs-title function_">exposeInMainWorld</span>(<span class="hljs-string">&quot;electronAPI&quot;</span>, electronAPI);<br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = electronAPI;<br><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/api/ipc-renderer">ipcRenderer | Electron</a></p>
+<p>就是负责渲染器和主进程之间的异步通信。暂时也看不出啥。</p>
+<p>找了半天没找到主进程的js，应该就是在解密后的<code>main/main</code>。</p>
+<p>再翻翻<code>dist</code>，有一个经典的<code>index.html</code>，包含了一个js脚本。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span>&#123;v <span class="hljs-keyword">as</span> te&#125;<span class="hljs-keyword">from</span><span class="hljs-string">&quot;../video.js&quot;</span>;<span class="hljs-keyword">import</span><span class="hljs-string">&quot;../vender.js&quot;</span>;(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<span class="hljs-keyword">const</span> n=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;link&quot;</span>).<span class="hljs-property">relList</span>;<span class="hljs-keyword">if</span>(n&amp;&amp;n.<span class="hljs-property">supports</span>&amp;&amp;n.<span class="hljs-title function_">supports</span>(<span class="hljs-string">&quot;modulepreload&quot;</span>))<span class="hljs-keyword">return</span>;<span class="hljs-keyword">for</span>(<span class="hljs-keyword">const</span> r <span class="hljs-keyword">of</span> <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&#x27;link[rel=&quot;modulepreload&quot;]&#x27;</span>))<span class="hljs-title function_">s</span>(r);<span class="hljs-keyword">new</span> <span class="hljs-title class_">MutationObserver</span>(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>&#123;<span class="hljs-keyword">for</span>(<span class="hljs-keyword">const</span> o <span class="hljs-keyword">of</span> r)<span class="hljs-keyword">if</span>(o.<span class="hljs-property">type</span>===<span class="hljs-string">&quot;childList&quot;</span>)<span class="hljs-keyword">for</span>(<span class="hljs-keyword">const</span> c <span class="hljs-keyword">of</span> o.<span class="hljs-property">addedNodes</span>)c.<span class="hljs-property">tagName</span>===<span class="hljs-string">&quot;LINK&quot;</span>&amp;&amp;c.<span class="hljs-property">rel</span>===<span class="hljs-string">&quot;modulepreload&quot;</span>&amp;&amp;<span class="hljs-title function_">s</span>(c)&#125;).<span class="hljs-title function_">observe</span>(<span class="hljs-variable language_">document</span>,&#123;<span class="hljs-attr">childList</span>:!<span class="hljs-number">0</span>,<span class="hljs-attr">subtree</span>:!<span class="hljs-number">0</span>&#125;);<span class="hljs-keyword">function</span> <span class="hljs-title function_">t</span>(<span class="hljs-params">r</span>)&#123;<span class="hljs-keyword">const</span> o=&#123;&#125;;<span class="hljs-keyword">return</span> r.<span class="hljs-property">integrity</span>&amp;&amp;(o.<span class="hljs-property">integrity</span>=r.<span class="hljs-property">integrity</span>),r.<span class="hljs-property">referrerPolicy</span>&amp;&amp;(o.<span class="hljs-property">referrerPolicy</span>=r.<span class="hljs-property">referrerPolicy</span>),r.<span class="hljs-property">crossOrigin</span>===<span class="hljs-string">&quot;use-credentials&quot;</span>?o.<span class="hljs-property">credentials</span>=<span class="hljs-string">&quot;include&quot;</span>:r.<span class="hljs-property">crossOrigin</span>===<span class="hljs-string">&quot;anonymous&quot;</span>?o.<span class="hljs-property">credentials</span>=<span class="hljs-string">&quot;omit&quot;</span>:o.<span class="hljs-property">credentials</span>=<span class="hljs-string">&quot;same-origin&quot;</span>,o&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">s</span>(<span class="hljs-params">r</span>)&#123;<span class="hljs-keyword">if</span>(r.<span class="hljs-property">ep</span>)<span class="hljs-keyword">return</span>;r.<span class="hljs-property">ep</span>=!<span class="hljs-number">0</span>;<span class="hljs-keyword">const</span> o=<span class="hljs-title function_">t</span>(r);<span class="hljs-title function_">fetch</span>(r.<span class="hljs-property">href</span>,o)&#125;&#125;)();<span class="hljs-keyword">function</span> <span class="hljs-title function_">ne</span>(<span class="hljs-params"></span>)&#123;<span class="hljs-keyword">const</span> e=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;meta&quot;</span>);e.<span class="hljs-property">httpEquiv</span>=<span class="hljs-string">&quot;Content-Security-Policy&quot;</span>,e.<span class="hljs-property">content</span>=<span class="hljs-string">&quot;default-src &#x27;self&#x27;; media-src blob: data:; img-src &#x27;self&#x27; data: blob:; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;;&quot;</span>,<span class="hljs-variable language_">document</span>.<span class="hljs-property">head</span>.<span class="hljs-title function_">appendChild</span>(e)&#125;<span class="hljs-title function_">ne</span>();<span class="hljs-keyword">const</span>&#123;<span class="hljs-attr">electronAPI</span>:m&#125;=<span class="hljs-variable language_">window</span>;<span class="hljs-keyword">if</span>(!m)<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;electronAPI not available&quot;</span>);<span class="hljs-keyword">const</span> x=[],j=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>;<span class="hljs-keyword">let</span> L=[],K=<span class="hljs-string">&quot;&quot;</span>;<span class="hljs-keyword">function</span> <span class="hljs-title function_">re</span>(<span class="hljs-params"></span>)&#123;x.<span class="hljs-property">length</span>=<span class="hljs-number">0</span>,j.<span class="hljs-title function_">clear</span>(),L.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">e,n</span>)=&gt;</span>&#123;e.<span class="hljs-property">section</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">t,s</span>)=&gt;</span>&#123;<span class="hljs-keyword">const</span> r=<span class="hljs-string">`<span class="hljs-subst">$&#123;n&#125;</span>-<span class="hljs-subst">$&#123;s&#125;</span>`</span>,o=<span class="hljs-string">`第<span class="hljs-subst">$&#123;n+<span class="hljs-number">1</span>&#125;</span>章 <span class="hljs-subst">$&#123;e.chapter&#125;</span>`</span>,c=<span class="hljs-string">`第<span class="hljs-subst">$&#123;s+<span class="hljs-number">1</span>&#125;</span>节 <span class="hljs-subst">$&#123;t&#125;</span>`</span>,i=x.<span class="hljs-property">length</span>,l=&#123;<span class="hljs-attr">id</span>:r,<span class="hljs-attr">chapterIndex</span>:n,<span class="hljs-attr">sectionIndex</span>:s,<span class="hljs-attr">chapterTitle</span>:e.<span class="hljs-property">chapter</span>,<span class="hljs-attr">sectionTitle</span>:t,<span class="hljs-attr">formattedChapterTitle</span>:o,<span class="hljs-attr">formattedSectionTitle</span>:c,<span class="hljs-attr">linearIndex</span>:i&#125;;x.<span class="hljs-title function_">push</span>(l),j.<span class="hljs-title function_">set</span>(r,i)&#125;)&#125;)&#125;<span class="hljs-keyword">const</span> a=&#123;<span class="hljs-attr">currentChapterIndex</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">currentSectionIndex</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">maxUnlockedIndex</span>:<span class="hljs-number">0</span>,<span class="hljs-attr">completedIndexList</span>:[],<span class="hljs-attr">times</span>:&#123;&#125;&#125;;<span class="hljs-keyword">function</span> <span class="hljs-title function_">T</span>(<span class="hljs-params">e</span>)&#123;<span class="hljs-keyword">if</span>(!e||<span class="hljs-keyword">typeof</span> e!=<span class="hljs-string">&quot;object&quot;</span>)<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<span class="hljs-keyword">const</span>&#123;<span class="hljs-attr">success</span>:n,<span class="hljs-attr">data</span>:t&#125;=e;<span class="hljs-keyword">if</span>(n===!<span class="hljs-number">1</span>)<span class="hljs-keyword">return</span>&#123;<span class="hljs-attr">success</span>:n,<span class="hljs-attr">data</span>:t&#125;;<span class="hljs-keyword">if</span>(n===!<span class="hljs-number">0</span>&amp;&amp;t&amp;&amp;<span class="hljs-keyword">typeof</span> t==<span class="hljs-string">&quot;object&quot;</span>)&#123;<span class="hljs-keyword">const</span> s=t.<span class="hljs-property">state</span>,r=t.<span class="hljs-property">message</span>;<span class="hljs-keyword">return</span> s&amp;&amp;<span class="hljs-keyword">typeof</span> s==<span class="hljs-string">&quot;object&quot;</span>?&#123;<span class="hljs-attr">success</span>:!<span class="hljs-number">0</span>,<span class="hljs-attr">state</span>:s,<span class="hljs-attr">message</span>:r&#125;:<span class="hljs-literal">null</span>&#125;<span class="hljs-keyword">if</span>(<span class="hljs-string">&quot;state&quot;</span><span class="hljs-keyword">in</span> e||<span class="hljs-string">&quot;message&quot;</span><span class="hljs-keyword">in</span> e)&#123;<span class="hljs-keyword">const</span> s=e.<span class="hljs-property">state</span>;<span class="hljs-keyword">if</span>(s&amp;&amp;<span class="hljs-keyword">typeof</span> s==<span class="hljs-string">&quot;object&quot;</span>)<span class="hljs-keyword">return</span>&#123;<span class="hljs-attr">success</span>:!<span class="hljs-number">0</span>,<span class="hljs-attr">state</span>:s,<span class="hljs-attr">message</span>:e.<span class="hljs-property">message</span>&#125;&#125;<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>&#125;<span class="hljs-keyword">const</span> se=<span class="hljs-number">1e3</span>,oe=<span class="hljs-number">.3</span>;<span class="hljs-keyword">function</span> <span class="hljs-title function_">ae</span>(<span class="hljs-params">e,n</span>)&#123;<span class="hljs-keyword">return</span><span class="hljs-string">`<span class="hljs-subst">$&#123;e&#125;</span>-<span class="hljs-subst">$&#123;n&#125;</span>`</span>&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">C</span>(<span class="hljs-params">e,n</span>)&#123;<span class="hljs-keyword">if</span>(!<span class="hljs-title class_">Number</span>.<span class="hljs-title function_">isInteger</span>(e)||!<span class="hljs-title class_">Number</span>.<span class="hljs-title function_">isInteger</span>(n))<span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<span class="hljs-keyword">const</span> t=<span class="hljs-title function_">ae</span>(e,n),s=j.<span class="hljs-title function_">get</span>(t);<span class="hljs-keyword">return</span> s===<span class="hljs-keyword">void</span> <span class="hljs-number">0</span>?<span class="hljs-attr">null</span>:x[s]&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">v</span>(<span class="hljs-params"></span>)&#123;<span class="hljs-keyword">return</span> <span class="hljs-title function_">C</span>(a.<span class="hljs-property">currentChapterIndex</span>,a.<span class="hljs-property">currentSectionIndex</span>)&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">z</span>(<span class="hljs-params">e,n</span>)&#123;<span class="hljs-keyword">const</span> t=<span class="hljs-title function_">C</span>(e,n);<span class="hljs-keyword">return</span> t?a.<span class="hljs-property">completedIndexList</span>.<span class="hljs-title function_">includes</span>(t.<span class="hljs-property">linearIndex</span>):!<span class="hljs-number">1</span>&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">W</span>(<span class="hljs-params">e,n</span>)&#123;<span class="hljs-keyword">const</span> t=<span class="hljs-title function_">C</span>(e,n);<span class="hljs-keyword">return</span> t?t.<span class="hljs-property">linearIndex</span>&lt;=a.<span class="hljs-property">maxUnlockedIndex</span>:!<span class="hljs-number">1</span>&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">ce</span>(<span class="hljs-params"></span>)&#123;<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">Y</span>(<span class="hljs-params">e</span>)&#123;e&amp;&amp;(a.<span class="hljs-property">currentChapterIndex</span>=e.<span class="hljs-property">currentChapterIndex</span>??a.<span class="hljs-property">currentChapterIndex</span>,a.<span class="hljs-property">currentSectionIndex</span>=e.<span class="hljs-property">currentSectionIndex</span>??a.<span class="hljs-property">currentSectionIndex</span>,a.<span class="hljs-property">maxUnlockedIndex</span>=e.<span class="hljs-property">maxUnlockedIndex</span>??a.<span class="hljs-property">maxUnlockedIndex</span>,a.<span class="hljs-property">completedIndexList</span>=<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(e.<span class="hljs-property">completedIndexList</span>)?[...e.<span class="hljs-property">completedIndexList</span>]:a.<span class="hljs-property">completedIndexList</span>,a.<span class="hljs-property">times</span>=e.<span class="hljs-property">times</span>&amp;&amp;<span class="hljs-keyword">typeof</span> e.<span class="hljs-property">times</span>==<span class="hljs-string">&quot;object&quot;</span>?&#123;...e.<span class="hljs-property">times</span>&#125;:a.<span class="hljs-property">times</span>,Z=&#123;<span class="hljs-attr">currentChapterIndex</span>:a.<span class="hljs-property">currentChapterIndex</span>,<span class="hljs-attr">currentSectionIndex</span>:a.<span class="hljs-property">currentSectionIndex</span>,<span class="hljs-attr">maxUnlockedIndex</span>:a.<span class="hljs-property">maxUnlockedIndex</span>,<span class="hljs-attr">completedIndexList</span>:[...a.<span class="hljs-property">completedIndexList</span>],<span class="hljs-attr">times</span>:&#123;...a.<span class="hljs-property">times</span>&#125;&#125;)&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">ie</span>(<span class="hljs-params">e</span>)&#123;!e||!e.<span class="hljs-property">state</span>||(<span class="hljs-title function_">Y</span>(e.<span class="hljs-property">state</span>),e.<span class="hljs-property">message</span>&amp;&amp;<span class="hljs-title function_">h</span>(e.<span class="hljs-property">message</span>),<span class="hljs-title function_">w</span>())&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">G</span>(<span class="hljs-params"></span>)&#123;<span class="hljs-keyword">const</span> e=&#123;&#125;,n=a.<span class="hljs-property">times</span>&amp;&amp;<span class="hljs-keyword">typeof</span> a.<span class="hljs-property">times</span>==<span class="hljs-string">&quot;object&quot;</span>?a.<span class="hljs-property">times</span>:&#123;&#125;;<span class="hljs-keyword">for</span>(<span class="hljs-keyword">const</span>[s,r]<span class="hljs-keyword">of</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(n))<span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isFinite</span>(r)&amp;&amp;(e[s]=<span class="hljs-title class_">Number</span>(r));<span class="hljs-keyword">const</span> t=<span class="hljs-title function_">v</span>();<span class="hljs-keyword">if</span>(t&amp;&amp;d)&#123;<span class="hljs-keyword">const</span> s=d.<span class="hljs-title function_">currentTime</span>();<span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isFinite</span>(s)&amp;&amp;(e[t.<span class="hljs-property">id</span>]=s)&#125;<span class="hljs-keyword">return</span> e&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">J</span>(<span class="hljs-params"></span>)&#123;<span class="hljs-keyword">return</span> <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(a.<span class="hljs-property">completedIndexList</span>)?[...a.<span class="hljs-property">completedIndexList</span>]:[]&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">U</span>(<span class="hljs-params">e</span>)&#123;<span class="hljs-keyword">if</span>(e)&#123;<span class="hljs-keyword">if</span>(e.<span class="hljs-property">success</span>===!<span class="hljs-number">1</span>)&#123;e.<span class="hljs-property">data</span>&amp;&amp;(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.media-area&quot;</span>).<span class="hljs-property">innerHTML</span>=e.<span class="hljs-property">data</span>),<span class="hljs-title function_">h</span>(<span class="hljs-string">&quot;同步进度失败&quot;</span>);<span class="hljs-keyword">return</span>&#125;<span class="hljs-title function_">ie</span>(e)&#125;&#125;<span class="hljs-keyword">const</span> Q=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;#app&quot;</span>);<span class="hljs-keyword">if</span>(!Q)<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;未找到 #app 容器&quot;</span>);<span class="hljs-keyword">const</span> P=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);P.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;learning-layout&quot;</span>;<span class="hljs-keyword">const</span> N=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;section&quot;</span>);N.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;player-column&quot;</span>;N.<span class="hljs-property">innerHTML</span>=<span class="hljs-string">`</span><br><span class="hljs-string">  &lt;header class=&quot;player-header&quot;&gt;</span><br><span class="hljs-string">    &lt;h1 class=&quot;player-title&quot;&gt;课程视频&lt;/h1&gt;</span><br><span class="hljs-string">  &lt;/header&gt;</span><br><span class="hljs-string">  &lt;div class=&quot;media-area&quot;&gt;</span><br><span class="hljs-string">    &lt;div class=&quot;video-wrapper&quot; id=&quot;videoWrapper&quot;&gt;</span><br><span class="hljs-string">      &lt;video</span><br><span class="hljs-string">        id=&quot;lessonVideo&quot;</span><br><span class="hljs-string">        class=&quot;video-js vjs-default-skin&quot;</span><br><span class="hljs-string">        controls</span><br><span class="hljs-string">        playsinline</span><br><span class="hljs-string">        preload=&quot;auto&quot;</span><br><span class="hljs-string">        data-setup=&#x27;&#123;&quot;controls&quot;: true, &quot;controlBar&quot;: &#123;&quot;progressControl&quot;: false&#125;&#125;&#x27;</span><br><span class="hljs-string">      &gt;&lt;/video&gt;</span><br><span class="hljs-string">    &lt;/div&gt;</span><br><span class="hljs-string">  &lt;/div&gt;</span><br><span class="hljs-string">`</span>;<span class="hljs-keyword">const</span> S=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;aside&quot;</span>);S.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;playlist-column&quot;</span>;S.<span class="hljs-property">innerHTML</span>=<span class="hljs-string">`</span><br><span class="hljs-string">  &lt;header class=&quot;playlist-header&quot;&gt;</span><br><span class="hljs-string">    &lt;h2 class=&quot;playlist-title&quot;&gt;课程目录&lt;/h2&gt;</span><br><span class="hljs-string">  &lt;/header&gt;</span><br><span class="hljs-string">  &lt;div class=&quot;playlist-scroll&quot; id=&quot;playlist&quot;&gt;&lt;/div&gt;</span><br><span class="hljs-string">`</span>;P.<span class="hljs-title function_">appendChild</span>(N);P.<span class="hljs-title function_">appendChild</span>(S);Q.<span class="hljs-title function_">appendChild</span>(P);<span class="hljs-keyword">const</span> X=N.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;#lessonVideo&quot;</span>),E=S.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;#playlist&quot;</span>);<span class="hljs-keyword">if</span>(!(X <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">HTMLVideoElement</span>))<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;video 元素加载失败&quot;</span>);<span class="hljs-keyword">const</span> q=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);q.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;popup-container&quot;</span>;<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(q);<span class="hljs-keyword">let</span> _=<span class="hljs-string">&quot;&quot;</span>,D=<span class="hljs-number">0</span>;<span class="hljs-keyword">function</span> <span class="hljs-title function_">h</span>(<span class="hljs-params">e</span>)&#123;<span class="hljs-keyword">if</span>(!e)<span class="hljs-keyword">return</span>;<span class="hljs-keyword">const</span> n=<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();<span class="hljs-keyword">if</span>(e===_&amp;&amp;n-D&lt;<span class="hljs-number">500</span>)<span class="hljs-keyword">return</span>;_=e,D=n;<span class="hljs-keyword">const</span> t=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);t.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;popup-message&quot;</span>,t.<span class="hljs-property">textContent</span>=e,q.<span class="hljs-title function_">appendChild</span>(t),<span class="hljs-title function_">requestAnimationFrame</span>(<span class="hljs-function">()=&gt;</span>&#123;t.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&quot;show&quot;</span>)&#125;),<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;t.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;transitionend&quot;</span>,<span class="hljs-function">()=&gt;</span>&#123;t.<span class="hljs-title function_">remove</span>()&#125;,&#123;<span class="hljs-attr">once</span>:!<span class="hljs-number">0</span>&#125;),t.<span class="hljs-property">classList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&quot;show&quot;</span>)&#125;,<span class="hljs-number">2600</span>)&#125;<span class="hljs-keyword">const</span> f=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>([a.<span class="hljs-property">currentChapterIndex</span>]);<span class="hljs-keyword">let</span> Z=<span class="hljs-literal">null</span>,d,I;<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">le</span>(<span class="hljs-params"></span>)&#123;<span class="hljs-keyword">const</span>[e,n,t]=<span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([m.<span class="hljs-title function_">getMetadata</span>(),m.<span class="hljs-title function_">getProgress</span>(),m.<span class="hljs-title function_">getVideo</span>()]),s=<span class="hljs-title function_">T</span>(n);m.<span class="hljs-title function_">getPage</span>();<span class="hljs-keyword">if</span>(!s||s.<span class="hljs-property">success</span>===!<span class="hljs-number">1</span>)<span class="hljs-keyword">throw</span> s?.<span class="hljs-property">data</span>&amp;&amp;(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.media-area&quot;</span>).<span class="hljs-property">innerHTML</span>=s.<span class="hljs-property">data</span>),<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;无法获取进度&quot;</span>);L=e?.<span class="hljs-property">outline</span>??[],K=e?.<span class="hljs-property">final</span>??<span class="hljs-string">&quot;奖励&quot;</span>,<span class="hljs-title function_">re</span>(),<span class="hljs-title function_">Y</span>(s.<span class="hljs-property">state</span>),d=<span class="hljs-title function_">te</span>(X,&#123;<span class="hljs-attr">controls</span>:!<span class="hljs-number">0</span>,<span class="hljs-attr">autoplay</span>:!<span class="hljs-number">0</span>,<span class="hljs-attr">preload</span>:<span class="hljs-string">&quot;auto&quot;</span>,<span class="hljs-attr">fluid</span>:!<span class="hljs-number">0</span>,<span class="hljs-attr">controlBar</span>:&#123;<span class="hljs-attr">progressControl</span>:!<span class="hljs-number">1</span>,<span class="hljs-attr">remainingTimeDisplay</span>:!<span class="hljs-number">0</span>,<span class="hljs-attr">pictureInPictureToggle</span>:!<span class="hljs-number">1</span>,<span class="hljs-attr">playbackRateMenuButton</span>:!<span class="hljs-number">1</span>,<span class="hljs-attr">seekToLive</span>:!<span class="hljs-number">0</span>&#125;,<span class="hljs-attr">userActions</span>:&#123;<span class="hljs-attr">hotkeys</span>:!<span class="hljs-number">1</span>,<span class="hljs-attr">doubleClick</span>:!<span class="hljs-number">1</span>&#125;&#125;),d.<span class="hljs-title function_">src</span>(&#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&quot;video/mp4&quot;</span>,<span class="hljs-attr">src</span>:t&#125;),d.<span class="hljs-title function_">ready</span>(<span class="hljs-function">()=&gt;</span>&#123;<span class="hljs-title function_">w</span>(),<span class="hljs-title function_">ee</span>(&#123;<span class="hljs-attr">autoplay</span>:!<span class="hljs-number">0</span>&#125;), <span class="hljs-title function_">de</span>()&#125;),d.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;ended&quot;</span>,<span class="hljs-function">()=&gt;</span>&#123;<span class="hljs-keyword">const</span> r=<span class="hljs-title function_">v</span>();<span class="hljs-keyword">if</span>(!r)<span class="hljs-keyword">return</span>;<span class="hljs-keyword">const</span> o=<span class="hljs-title function_">G</span>(),c=<span class="hljs-title function_">J</span>();!o||!c||m.<span class="hljs-title function_">updateProgress</span>(&#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&quot;complete&quot;</span>,<span class="hljs-attr">chapterIndex</span>:r.<span class="hljs-property">chapterIndex</span>,<span class="hljs-attr">sectionIndex</span>:r.<span class="hljs-property">sectionIndex</span>,<span class="hljs-attr">duration</span>:d.<span class="hljs-title function_">duration</span>(),<span class="hljs-attr">times</span>:o,<span class="hljs-attr">completedIndexList</span>:c&#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">i</span>=&gt;</span>&#123;<span class="hljs-title function_">U</span>(<span class="hljs-title function_">T</span>(i))&#125;).<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">i</span>=&gt;</span>&#123;<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&quot;同步完成进度失败&quot;</span>,i),<span class="hljs-title function_">h</span>(<span class="hljs-string">&quot;同步完成进度失败&quot;</span>)&#125;)&#125;)&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">de</span>(<span class="hljs-params"></span>)&#123;I&amp;&amp;<span class="hljs-variable language_">window</span>.<span class="hljs-built_in">clearInterval</span>(I),I=<span class="hljs-variable language_">window</span>.<span class="hljs-built_in">setInterval</span>(<span class="hljs-function">()=&gt;</span>&#123;<span class="hljs-keyword">if</span>(!d)<span class="hljs-keyword">return</span>;<span class="hljs-keyword">const</span> e=<span class="hljs-title function_">v</span>();<span class="hljs-keyword">if</span>(!e)<span class="hljs-keyword">return</span>;<span class="hljs-keyword">const</span> n=d.<span class="hljs-title function_">currentTime</span>(),t=Z?.<span class="hljs-property">times</span>?.[e.<span class="hljs-property">id</span>]??<span class="hljs-number">0</span>;<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">abs</span>(n-t)&lt;oe||m.<span class="hljs-title function_">heartbeat</span>(&#123;<span class="hljs-attr">chapterIndex</span>:e.<span class="hljs-property">chapterIndex</span>,<span class="hljs-attr">sectionIndex</span>:e.<span class="hljs-property">sectionIndex</span>,<span class="hljs-attr">currentTime</span>:n&#125;)&#125;,se)&#125;m.<span class="hljs-title function_">onProgressUpdated</span>(<span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span>&#123;<span class="hljs-title function_">U</span>(<span class="hljs-title function_">T</span>(e))&#125;);<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">ee</span>(<span class="hljs-params">&#123;autoplay:e=!<span class="hljs-number">1</span>&#125;=&#123;&#125;</span>)&#123;<span class="hljs-keyword">const</span> n=<span class="hljs-title function_">v</span>();<span class="hljs-keyword">if</span>(!n||!d)<span class="hljs-keyword">return</span>;f.<span class="hljs-title function_">add</span>(n.<span class="hljs-property">chapterIndex</span>);<span class="hljs-keyword">const</span> t=a.<span class="hljs-property">times</span>[n.<span class="hljs-property">id</span>]??<span class="hljs-number">0</span>;d.<span class="hljs-title function_">currentTime</span>(t),e&amp;&amp;d.<span class="hljs-title function_">play</span>().<span class="hljs-title function_">catch</span>(<span class="hljs-function">()=&gt;</span>&#123;&#125;),<span class="hljs-title function_">h</span>(<span class="hljs-string">`正在播放：<span class="hljs-subst">$&#123;n.formattedChapterTitle&#125;</span> - <span class="hljs-subst">$&#123;n.formattedSectionTitle&#125;</span>`</span>),<span class="hljs-title function_">w</span>()&#125;<span class="hljs-keyword">function</span> <span class="hljs-title function_">w</span>(<span class="hljs-params"></span>)&#123;E.<span class="hljs-property">innerHTML</span>=<span class="hljs-string">&quot;&quot;</span>,L.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">r,o</span>)=&gt;</span>&#123;<span class="hljs-keyword">const</span> c=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);c.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;chapter-block&quot;</span>;<span class="hljs-keyword">const</span> i=r.<span class="hljs-property">section</span>.<span class="hljs-title function_">every</span>(<span class="hljs-function">(<span class="hljs-params">M,p</span>)=&gt;</span><span class="hljs-title function_">z</span>(o,p)),l=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;button&quot;</span>);l.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;chapter-header&quot;</span>,l.<span class="hljs-property">dataset</span>.<span class="hljs-property">role</span>=<span class="hljs-string">&quot;chapter-toggle&quot;</span>,l.<span class="hljs-property">dataset</span>.<span class="hljs-property">chapterIndex</span>=<span class="hljs-title class_">String</span>(o),l.<span class="hljs-title function_">setAttribute</span>(<span class="hljs-string">&quot;aria-expanded&quot;</span>,f.<span class="hljs-title function_">has</span>(o)?<span class="hljs-string">&quot;true&quot;</span>:<span class="hljs-string">&quot;false&quot;</span>),i&amp;&amp;l.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&quot;chapter-completed&quot;</span>);<span class="hljs-keyword">const</span> y=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;span&quot;</span>);y.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;chapter-title&quot;</span>,y.<span class="hljs-property">textContent</span>=<span class="hljs-string">`第<span class="hljs-subst">$&#123;o+<span class="hljs-number">1</span>&#125;</span>章 <span class="hljs-subst">$&#123;r.chapter&#125;</span>`</span>;<span class="hljs-keyword">const</span> k=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;span&quot;</span>);k.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;chapter-status&quot;</span>,k.<span class="hljs-property">textContent</span>=i?<span class="hljs-string">&quot;✅&quot;</span>:<span class="hljs-string">&quot;⚪&quot;</span>;<span class="hljs-keyword">const</span> A=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;span&quot;</span>);A.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;chapter-toggle-icon&quot;</span>,A.<span class="hljs-property">textContent</span>=f.<span class="hljs-title function_">has</span>(o)?<span class="hljs-string">&quot;▾&quot;</span>:<span class="hljs-string">&quot;▸&quot;</span>,l.<span class="hljs-title function_">append</span>(A,y,k),c.<span class="hljs-title function_">appendChild</span>(l);<span class="hljs-keyword">const</span> b=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;ul&quot;</span>);b.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;section-list&quot;</span>,f.<span class="hljs-title function_">has</span>(o)||b.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&quot;collapsed&quot;</span>),r.<span class="hljs-property">section</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">M,p</span>)=&gt;</span>&#123;<span class="hljs-keyword">const</span> B=<span class="hljs-title function_">C</span>(o,p);<span class="hljs-keyword">if</span>(!B)<span class="hljs-keyword">return</span>;<span class="hljs-keyword">const</span> g=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;li&quot;</span>);g.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;section-item&quot;</span>;<span class="hljs-keyword">const</span> O=<span class="hljs-title function_">W</span>(o,p),F=<span class="hljs-title function_">z</span>(o,p),V=a.<span class="hljs-property">currentChapterIndex</span>===o&amp;&amp;a.<span class="hljs-property">currentSectionIndex</span>===p;O||g.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&quot;locked&quot;</span>),F&amp;&amp;g.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&quot;completed&quot;</span>),V&amp;&amp;g.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&quot;playing&quot;</span>);<span class="hljs-keyword">const</span> u=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;button&quot;</span>);u.<span class="hljs-property">type</span>=<span class="hljs-string">&quot;button&quot;</span>,u.<span class="hljs-property">dataset</span>.<span class="hljs-property">role</span>=<span class="hljs-string">&quot;section&quot;</span>,u.<span class="hljs-property">dataset</span>.<span class="hljs-property">chapterIndex</span>=<span class="hljs-title class_">String</span>(o),u.<span class="hljs-property">dataset</span>.<span class="hljs-property">sectionIndex</span>=<span class="hljs-title class_">String</span>(p),u.<span class="hljs-property">dataset</span>.<span class="hljs-property">linearIndex</span>=<span class="hljs-title class_">String</span>(B.<span class="hljs-property">linearIndex</span>),u.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;section-button&quot;</span>,u.<span class="hljs-property">title</span>=O?<span class="hljs-attr">M</span>:<span class="hljs-string">&quot;请先完成上一节&quot;</span>;<span class="hljs-keyword">const</span> H=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;span&quot;</span>);H.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;play-indicator&quot;</span>,H.<span class="hljs-property">textContent</span>=V?<span class="hljs-string">&quot;▶&quot;</span>:<span class="hljs-string">&quot;&quot;</span>;<span class="hljs-keyword">const</span> $=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;span&quot;</span>);$.className=<span class="hljs-string">&quot;status-icon&quot;</span>,$.textContent=F?<span class="hljs-string">&quot;✅&quot;</span>:<span class="hljs-string">&quot;⚪&quot;</span>;<span class="hljs-keyword">const</span> R=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;span&quot;</span>);R.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;section-label&quot;</span>,R.<span class="hljs-property">textContent</span>=<span class="hljs-string">`第<span class="hljs-subst">$&#123;p+<span class="hljs-number">1</span>&#125;</span>节 <span class="hljs-subst">$&#123;M&#125;</span>`</span>,u.<span class="hljs-title function_">append</span>(H,$,R),g.<span class="hljs-title function_">appendChild</span>(u),b.<span class="hljs-title function_">appendChild</span>(g)&#125;),c.<span class="hljs-title function_">appendChild</span>(b),E.<span class="hljs-title function_">appendChild</span>(c)&#125;);<span class="hljs-keyword">const</span> e=L.<span class="hljs-property">length</span>+<span class="hljs-number">1</span>,n=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);n.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;chapter-block flag-block&quot;</span>;<span class="hljs-keyword">const</span> t=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;button&quot;</span>);t.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;chapter-header flag-entry&quot;</span>,t.<span class="hljs-property">dataset</span>.<span class="hljs-property">role</span>=<span class="hljs-string">&quot;flag&quot;</span>,t.<span class="hljs-property">textContent</span>=<span class="hljs-string">`第<span class="hljs-subst">$&#123;e&#125;</span>章 <span class="hljs-subst">$&#123;K&#125;</span>`</span>;<span class="hljs-keyword">const</span> s=<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;span&quot;</span>);s.<span class="hljs-property">className</span>=<span class="hljs-string">&quot;chapter-status&quot;</span>,<span class="hljs-title function_">ce</span>()?(t.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&quot;flag-unlocked&quot;</span>),s.<span class="hljs-property">textContent</span>=<span class="hljs-string">&quot;✅&quot;</span>,t.<span class="hljs-property">disabled</span>=!<span class="hljs-number">1</span>):(t.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&quot;flag-locked&quot;</span>),t.<span class="hljs-property">disabled</span>=!<span class="hljs-number">0</span>,t.<span class="hljs-property">title</span>=<span class="hljs-string">&quot;请先完成所有章节&quot;</span>,s.<span class="hljs-property">textContent</span>=<span class="hljs-string">&quot;⚪&quot;</span>),t.<span class="hljs-title function_">appendChild</span>(s),n.<span class="hljs-title function_">appendChild</span>(t),E.<span class="hljs-title function_">appendChild</span>(n)&#125;E?.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;click&quot;</span>,<span class="hljs-keyword">async</span> e=&gt;&#123;<span class="hljs-keyword">const</span> n=e.<span class="hljs-property">target</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">HTMLElement</span>?e.<span class="hljs-property">target</span>.<span class="hljs-title function_">closest</span>(<span class="hljs-string">&quot;[data-role=chapter-toggle]&quot;</span>):<span class="hljs-literal">null</span>;<span class="hljs-keyword">if</span>(n)&#123;<span class="hljs-keyword">const</span> r=<span class="hljs-title class_">Number</span>(n.<span class="hljs-property">dataset</span>.<span class="hljs-property">chapterIndex</span>);f.<span class="hljs-title function_">has</span>(r)?f.<span class="hljs-title function_">delete</span>(r):f.<span class="hljs-title function_">add</span>(r),<span class="hljs-title function_">w</span>();<span class="hljs-keyword">return</span>&#125;<span class="hljs-keyword">const</span> t=e.<span class="hljs-property">target</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">HTMLElement</span>?e.<span class="hljs-property">target</span>.<span class="hljs-title function_">closest</span>(<span class="hljs-string">&quot;[data-role=section]&quot;</span>):<span class="hljs-literal">null</span>;<span class="hljs-keyword">if</span>(t)&#123;<span class="hljs-keyword">const</span> r=<span class="hljs-title class_">Number</span>(t.<span class="hljs-property">dataset</span>.<span class="hljs-property">chapterIndex</span>),o=<span class="hljs-title class_">Number</span>(t.<span class="hljs-property">dataset</span>.<span class="hljs-property">sectionIndex</span>);<span class="hljs-keyword">if</span>(!<span class="hljs-title function_">C</span>(r,o))<span class="hljs-keyword">return</span>;<span class="hljs-keyword">if</span>(!<span class="hljs-title function_">W</span>(r,o))&#123;<span class="hljs-title function_">h</span>(<span class="hljs-string">&quot;请先完成上一节&quot;</span>);<span class="hljs-keyword">return</span>&#125;<span class="hljs-keyword">const</span> i=<span class="hljs-title function_">G</span>(),l=<span class="hljs-title function_">J</span>();<span class="hljs-keyword">if</span>(!i||!l)&#123;<span class="hljs-title function_">h</span>(<span class="hljs-string">&quot;同步进度失败&quot;</span>);<span class="hljs-keyword">return</span>&#125;<span class="hljs-keyword">const</span> y=<span class="hljs-keyword">await</span> m.<span class="hljs-title function_">updateProgress</span>(&#123;<span class="hljs-attr">type</span>:<span class="hljs-string">&quot;select&quot;</span>,<span class="hljs-attr">chapterIndex</span>:r,<span class="hljs-attr">sectionIndex</span>:o,<span class="hljs-attr">times</span>:i,<span class="hljs-attr">completedIndexList</span>:l&#125;);<span class="hljs-title function_">U</span>(<span class="hljs-title function_">T</span>(y)),<span class="hljs-title function_">ee</span>(&#123;<span class="hljs-attr">autoplay</span>:!<span class="hljs-number">0</span>&#125;);<span class="hljs-keyword">return</span>&#125;<span class="hljs-keyword">if</span>(e.<span class="hljs-property">target</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">HTMLElement</span>?e.<span class="hljs-property">target</span>.<span class="hljs-title function_">closest</span>(<span class="hljs-string">&quot;[data-role=flag]&quot;</span>):<span class="hljs-literal">null</span>)&#123;<span class="hljs-keyword">const</span> r=<span class="hljs-keyword">await</span> m.<span class="hljs-title function_">getPage</span>();<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.media-area&quot;</span>).<span class="hljs-property">innerHTML</span>=r&#125;&#125;);<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;beforeunload&quot;</span>,<span class="hljs-function">()=&gt;</span>&#123;I&amp;&amp;<span class="hljs-variable language_">window</span>.<span class="hljs-built_in">clearInterval</span>(I)&#125;);<span class="hljs-title function_">le</span>().<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span>&#123;<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&quot;Failed to initialize player&quot;</span>,e),<span class="hljs-title function_">h</span>(<span class="hljs-string">&quot;播放器初始化失败&quot;</span>)&#125;);<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p>这个脚本有点长，有点混淆，Copilot分析一波，大概就是前端处理视频进度的逻辑，如果看到最后一章并且前面所有都看完了，那么出现flag页面。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>一开始一直在<code>index-CG8s3Iv2.js</code>这里绕，改了好几个逻辑，比如直接改检验函数<code>ce()</code>为true，或者伪造看过课程的数目，都返回<code>fake_flag</code>。看来检测比较严格。而且并没有在任何明文信息中找到构造flag网页的内容。</p>
+<p>这时候考虑找<code>main/main</code>的逻辑。但是<code>jsnz.node</code>看上去非常难逆，直接逆不太会。</p>
+<p>electron与其他很多依赖js的环境(比如Tauri)一样，一旦它们被加载起来，那就很容易被调试。所以考虑上调试。</p>
+<p>首先electron经典<code>Ctrl+Shift+I</code>，有检测。</p>
+<p>参考大佬的文章，尝试用Chrome的Remote devtool直接上<code>–remote-debugging-port=xxxx</code>或者<code>--inspect=xxxx</code>也被杀，常规调试手段好像不大行。</p>
+<p>拷打gemini知道了还有一种选项是<code>--inspect-brk=xxxx</code>，这样能在js第一行下断点，反调试一般来讲不会立刻启动。</p>
+<p>这时候chrome中输入<code>chrome://inspect</code>在Remote Target中找到启动的服务端口，inspect进去可以看到断在某个js的第一行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">\node_modules\.bin\electron.cmd --inspect-brk=9223 .\app\<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE2025.10.15.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后直接跑起来，程序因为反调检测被杀死，但是控制台中可以看到：</p>
+<p><img src="/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE2025.10.15-17605325284092.png" srcset="/img/loading.gif" lazyload></p>
+<p>显示了<code>main.jsnz</code>的异常点，点击查看就得到了<code>main.jsnz</code>的解密后js源码:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> &#123; app, <span class="hljs-title class_">BrowserWindow</span>, ipcMain &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;electron&quot;</span>);<br>app.<span class="hljs-title function_">disableHardwareAcceleration</span>();<br><br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;node:path&quot;</span>);<br><span class="hljs-keyword">const</span> &#123; outline, final &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./outline&quot;</span>);<br><br><span class="hljs-keyword">const</span> &#123; videoData, imageData, xwData &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./assets&quot;</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">HEARTBEAT</span> = &#123;<br>    <span class="hljs-attr">MIN_INTERVAL</span>: <span class="hljs-number">400</span>,<br>    <span class="hljs-attr">MAX_INTERVAL</span>: <span class="hljs-number">3000</span>,<br>    <span class="hljs-attr">TIME_TOLERANCE_SECONDS</span>: <span class="hljs-number">2</span>,<br>    <span class="hljs-attr">BROADCAST_THROTTLE</span>: <span class="hljs-number">500</span>,<br>    <span class="hljs-attr">COMPLETION_TOLERANCE_SECONDS</span>: <span class="hljs-number">3</span>,<br>&#125;;<br><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">HACKER_HTML</span> = <span class="hljs-string">`&lt;div style=&quot;text-align: center;&quot;&gt;</span><br><span class="hljs-string">    &lt;h2&gt;嗯，是个有毅力的黑客。贫道早就料到了这点，收手吧！&lt;/h2&gt;</span><br><span class="hljs-string">    &lt;img src=&quot;<span class="hljs-subst">$&#123;xwData&#125;</span>&quot; style=&quot;max-width: 100%; height: auto;&quot; /&gt;</span><br><span class="hljs-string">    &lt;/div&gt;</span><br><span class="hljs-string">`</span>;<br><br><span class="hljs-keyword">let</span> videoDataPromise;<br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">ensureVideoData</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">if</span> (videoDataPromise) <span class="hljs-keyword">return</span> videoDataPromise;<br>    videoDataPromise = (<span class="hljs-title function_">async</span> () =&gt; &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            data = videoData;<br>            <span class="hljs-keyword">if</span> (!data) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;videoData export missing or invalid&quot;</span>);<br>            &#125;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&quot;videoData loaded&quot;</span>, &#123; <span class="hljs-attr">length</span>: data.<span class="hljs-property">length</span> &#125;);<br>            <span class="hljs-keyword">return</span> data;<br>        &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&quot;Failed to load video data&quot;</span>, error);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>    &#125;)();<br>    <span class="hljs-keyword">return</span> videoDataPromise;<br>&#125;<br><br><span class="hljs-keyword">const</span> linearSections = [];<br><span class="hljs-keyword">const</span> indexLookup = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();<br>outline.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">chapter, chapterIndex</span>) =&gt;</span> &#123;<br>    chapter.<span class="hljs-property">section</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">sectionTitle, sectionIndex</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">const</span> id = <span class="hljs-string">`<span class="hljs-subst">$&#123;chapterIndex&#125;</span>-<span class="hljs-subst">$&#123;sectionIndex&#125;</span>`</span>;<br>        <span class="hljs-keyword">const</span> formattedChapterTitle = <span class="hljs-string">`第<span class="hljs-subst">$&#123;chapterIndex + <span class="hljs-number">1</span>&#125;</span>章 <span class="hljs-subst">$&#123;</span></span><br><span class="hljs-subst"><span class="hljs-string">            chapter.chapter</span></span><br><span class="hljs-subst"><span class="hljs-string">        &#125;</span>`</span>;<br>        <span class="hljs-keyword">const</span> formattedSectionTitle = <span class="hljs-string">`第<span class="hljs-subst">$&#123;sectionIndex + <span class="hljs-number">1</span>&#125;</span>节 <span class="hljs-subst">$&#123;sectionTitle&#125;</span>`</span>;<br>        <span class="hljs-keyword">const</span> record = &#123;<br>            id,<br>            chapterIndex,<br>            sectionIndex,<br>            <span class="hljs-attr">chapterTitle</span>: chapter.<span class="hljs-property">chapter</span>,<br>            sectionTitle,<br>            formattedChapterTitle,<br>            formattedSectionTitle,<br>            <span class="hljs-attr">linearIndex</span>: linearSections.<span class="hljs-property">length</span>,<br>        &#125;;<br>        linearSections.<span class="hljs-title function_">push</span>(record);<br>        indexLookup.<span class="hljs-title function_">set</span>(id, record.<span class="hljs-property">linearIndex</span>);<br>    &#125;);<br>&#125;);<br><br><span class="hljs-keyword">const</span> progressState = &#123;<br>    <span class="hljs-attr">currentChapterIndex</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-attr">currentSectionIndex</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-attr">maxUnlockedIndex</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-attr">completedIndexList</span>: [],<br>    <span class="hljs-attr">completedIndexSet</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>(),<br>    <span class="hljs-attr">times</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>(),<br>    <span class="hljs-attr">lastHeartbeat</span>: <span class="hljs-literal">null</span>,<br>    <span class="hljs-attr">lastBroadcastAt</span>: <span class="hljs-number">0</span>,<br>&#125;;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getSectionId</span>(<span class="hljs-params">chapterIndex, sectionIndex</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;chapterIndex&#125;</span>-<span class="hljs-subst">$&#123;sectionIndex&#125;</span>`</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getRecord</span>(<span class="hljs-params">chapterIndex, sectionIndex</span>) &#123;<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-title class_">Number</span>.<span class="hljs-title function_">isInteger</span>(chapterIndex) || !<span class="hljs-title class_">Number</span>.<span class="hljs-title function_">isInteger</span>(sectionIndex))<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">const</span> id = <span class="hljs-title function_">getSectionId</span>(chapterIndex, sectionIndex);<br>    <span class="hljs-keyword">const</span> linearIndex = indexLookup.<span class="hljs-title function_">get</span>(id);<br>    <span class="hljs-keyword">if</span> (linearIndex === <span class="hljs-literal">undefined</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">return</span> linearSections[linearIndex];<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getCurrentRecord</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">getRecord</span>(<br>        progressState.<span class="hljs-property">currentChapterIndex</span>,<br>        progressState.<span class="hljs-property">currentSectionIndex</span><br>    );<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">ensureTimeEntry</span>(<span class="hljs-params">sectionId</span>) &#123;<br>    <span class="hljs-keyword">if</span> (!progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">has</span>(sectionId)) &#123;<br>        progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">set</span>(sectionId, <span class="hljs-number">0</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">sanitizeState</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-attr">currentChapterIndex</span>: progressState.<span class="hljs-property">currentChapterIndex</span>,<br>        <span class="hljs-attr">currentSectionIndex</span>: progressState.<span class="hljs-property">currentSectionIndex</span>,<br>        <span class="hljs-attr">maxUnlockedIndex</span>: progressState.<span class="hljs-property">maxUnlockedIndex</span>,<br>        <span class="hljs-attr">completedIndexList</span>: [...progressState.<span class="hljs-property">completedIndexList</span>],<br>        <span class="hljs-attr">times</span>: <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">fromEntries</span>(progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">entries</span>()),<br>    &#125;;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">createFailureResponse</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">success</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">data</span>: <span class="hljs-variable constant_">HACKER_HTML</span> &#125;;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">createSuccessResponse</span>(<span class="hljs-params">&#123; snapshot, message &#125; = &#123;&#125;</span>) &#123;<br>    <span class="hljs-keyword">const</span> state = snapshot ?? <span class="hljs-title function_">sanitizeState</span>();<br>    <span class="hljs-keyword">const</span> data = &#123; state &#125;;<br>    <span class="hljs-keyword">if</span> (message !== <span class="hljs-literal">undefined</span>) &#123;<br>        data.<span class="hljs-property">message</span> = message;<br>    &#125;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span>, data &#125;;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">broadcastProgress</span>(<span class="hljs-params">message, snapshot</span>) &#123;<br>    <span class="hljs-keyword">const</span> payload = &#123;<br>        <span class="hljs-attr">state</span>: snapshot ?? <span class="hljs-title function_">sanitizeState</span>(),<br>        message,<br>    &#125;;<br>    <span class="hljs-title class_">BrowserWindow</span>.<span class="hljs-title function_">getAllWindows</span>().<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params"><span class="hljs-variable language_">window</span></span>) =&gt;</span> &#123;<br>        <span class="hljs-variable language_">window</span>.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;progress:updated&quot;</span>, payload);<br>    &#125;);<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">setCurrentSection</span>(<span class="hljs-params">record</span>) &#123;<br>    progressState.<span class="hljs-property">currentChapterIndex</span> = record.<span class="hljs-property">chapterIndex</span>;<br>    progressState.<span class="hljs-property">currentSectionIndex</span> = record.<span class="hljs-property">sectionIndex</span>;<br>    <span class="hljs-title function_">ensureTimeEntry</span>(record.<span class="hljs-property">id</span>);<br>    progressState.<span class="hljs-property">lastHeartbeat</span> = <span class="hljs-literal">null</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">unlockNext</span>(<span class="hljs-params">linearIndex</span>) &#123;<br>    <span class="hljs-keyword">if</span> (linearIndex + <span class="hljs-number">1</span> &lt; linearSections.<span class="hljs-property">length</span>) &#123;<br>        progressState.<span class="hljs-property">maxUnlockedIndex</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(<br>            progressState.<span class="hljs-property">maxUnlockedIndex</span>,<br>            linearIndex + <span class="hljs-number">1</span><br>        );<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">isValidTimeValue</span>(<span class="hljs-params">value</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isFinite</span>(value) &amp;&amp; value &gt;= <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">validateTimes</span>(<span class="hljs-params">timesObject</span>) &#123;<br>    <span class="hljs-keyword">if</span> (!timesObject || <span class="hljs-keyword">typeof</span> timesObject !== <span class="hljs-string">&quot;object&quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> [sectionId, reportedValue] <span class="hljs-keyword">of</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(timesObject)) &#123;<br>        <span class="hljs-keyword">if</span> (!indexLookup.<span class="hljs-title function_">has</span>(sectionId)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_">isValidTimeValue</span>(reportedValue)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">const</span> stored = progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">get</span>(sectionId);<br>        <span class="hljs-keyword">if</span> (stored === <span class="hljs-literal">undefined</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (reportedValue - stored &gt; <span class="hljs-variable constant_">HEARTBEAT</span>.<span class="hljs-property">COMPLETION_TOLERANCE_SECONDS</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (stored - reportedValue &gt; <span class="hljs-variable constant_">HEARTBEAT</span>.<span class="hljs-property">TIME_TOLERANCE_SECONDS</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">validateCompletedIndexList</span>(<span class="hljs-params">list</span>) &#123;<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(list)) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> index <span class="hljs-keyword">of</span> list) &#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-title class_">Number</span>.<span class="hljs-title function_">isInteger</span>(index) || index &lt; <span class="hljs-number">0</span> || index &gt;= linearSections.<span class="hljs-property">length</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (!progressState.<span class="hljs-property">completedIndexSet</span>.<span class="hljs-title function_">has</span>(index)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">markSectionCompleted</span>(<span class="hljs-params">record, duration</span>) &#123;<br>    <span class="hljs-title function_">ensureTimeEntry</span>(record.<span class="hljs-property">id</span>);<br>    <span class="hljs-keyword">if</span> (!progressState.<span class="hljs-property">completedIndexSet</span>.<span class="hljs-title function_">has</span>(record.<span class="hljs-property">linearIndex</span>)) &#123;<br>        progressState.<span class="hljs-property">completedIndexList</span>.<span class="hljs-title function_">push</span>(record.<span class="hljs-property">linearIndex</span>);<br>        progressState.<span class="hljs-property">completedIndexSet</span>.<span class="hljs-title function_">add</span>(record.<span class="hljs-property">linearIndex</span>);<br>        progressState.<span class="hljs-property">completedIndexList</span>.<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isFinite</span>(duration)) &#123;<br>        <span class="hljs-keyword">const</span> existing = progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">get</span>(record.<span class="hljs-property">id</span>) ?? <span class="hljs-number">0</span>;<br>        progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">set</span>(record.<span class="hljs-property">id</span>, <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(existing, duration));<br>    &#125;<br>    <span class="hljs-title function_">unlockNext</span>(record.<span class="hljs-property">linearIndex</span>);<br>    progressState.<span class="hljs-property">lastHeartbeat</span> = <span class="hljs-literal">null</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">isUnlocked</span>(<span class="hljs-params">linearIndex</span>) &#123;<br>    <span class="hljs-keyword">return</span> linearIndex &lt;= progressState.<span class="hljs-property">maxUnlockedIndex</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">areAllSectionsCompleted</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> progressState.<span class="hljs-property">completedIndexSet</span>.<span class="hljs-property">size</span> === linearSections.<span class="hljs-property">length</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">createWindow</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> mainWindow = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserWindow</span>(&#123;<br>        <span class="hljs-attr">width</span>: <span class="hljs-number">1280</span>,<br>        <span class="hljs-attr">height</span>: <span class="hljs-number">800</span>,<br>        <span class="hljs-attr">autoHideMenuBar</span>: <span class="hljs-literal">true</span>,<br>        <span class="hljs-attr">webPreferences</span>: &#123;<br>            <span class="hljs-attr">preload</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;../main/preload.js&quot;</span>),<br>            <span class="hljs-attr">nodeIntegration</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-attr">contextIsolation</span>: <span class="hljs-literal">true</span>,<br>        &#125;,<br>    &#125;);<br><br>    <span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">SWIFT_AND_UPLIFT</span>) &#123;<br>        <span class="hljs-string">&quot;急急如律令，控制台，开！&quot;</span><br>        mainWindow.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">openDevTools</span>(&#123; <span class="hljs-attr">mode</span>: <span class="hljs-string">&quot;detach&quot;</span> &#125;);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> arg <span class="hljs-keyword">of</span> process.<span class="hljs-property">argv</span>) &#123;<br>            <span class="hljs-keyword">if</span> (arg.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&quot;--&quot;</span>)) &#123;<br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;小子，想破我无量仙翁的阵法？再去修炼个万年吧！&quot;</span>);<br>                app.<span class="hljs-title function_">quit</span>();<br>            &#125;<br>        &#125;<br><br>        mainWindow.<span class="hljs-title function_">removeMenu</span>();<br>        mainWindow.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;before-input-event&quot;</span>, <span class="hljs-function">(<span class="hljs-params">event, input</span>) =&gt;</span> &#123;<br>            <span class="hljs-keyword">const</span> isDevToolsShortcut =<br>                (input.<span class="hljs-property">key</span>?.<span class="hljs-title function_">toUpperCase</span>() === <span class="hljs-string">&quot;I&quot;</span> &amp;&amp;<br>                    input.<span class="hljs-property">control</span> &amp;&amp;<br>                    input.<span class="hljs-property">shift</span>) ||<br>                input.<span class="hljs-property">key</span>?.<span class="hljs-title function_">toUpperCase</span>() === <span class="hljs-string">&quot;F12&quot;</span>;<br>            <span class="hljs-keyword">if</span> (isDevToolsShortcut) &#123;<br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<br>                    <span class="hljs-string">&quot;按什么呢？若封印如此容易打破，本仙大名岂不毁于一旦？&quot;</span><br>                );<br>                app.<span class="hljs-title function_">quit</span>();<br>            &#125;<br>        &#125;);<br>        mainWindow.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;devtools-opened&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;死了这条心吧，这条路是走不通的！&quot;</span>);<br>            mainWindow.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">closeDevTools</span>();<br>            app.<span class="hljs-title function_">quit</span>();<br>        &#125;);<br>    &#125;<br><br>    mainWindow.<span class="hljs-title function_">loadFile</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;../dist/index.html&quot;</span>));<br><br>    mainWindow.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">once</span>(<span class="hljs-string">&quot;did-finish-load&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title function_">broadcastProgress</span>(<span class="hljs-literal">undefined</span>);<br>    &#125;);<br><br>    <span class="hljs-keyword">return</span> mainWindow;<br>&#125;<br><br>ipcMain.<span class="hljs-title function_">handle</span>(<span class="hljs-string">&quot;progress:get&quot;</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">createSuccessResponse</span>());<br><br>ipcMain.<span class="hljs-title function_">handle</span>(<span class="hljs-string">&quot;progress:update&quot;</span>, <span class="hljs-function">(<span class="hljs-params">event, payload = &#123;&#125;</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; type, chapterIndex, sectionIndex, duration &#125; = payload;<br>    <span class="hljs-keyword">const</span> record = <span class="hljs-title function_">getRecord</span>(chapterIndex, sectionIndex);<br>    <span class="hljs-keyword">if</span> (!record) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> hasTimes = <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(payload, <span class="hljs-string">&quot;times&quot;</span>);<br>    <span class="hljs-keyword">const</span> hasCompleted = <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(<br>        payload,<br>        <span class="hljs-string">&quot;completedIndexList&quot;</span><br>    );<br><br>    <span class="hljs-keyword">if</span> (!hasTimes || !hasCompleted) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> incomingTimes = payload.<span class="hljs-property">times</span>;<br>    <span class="hljs-keyword">const</span> incomingCompleted = payload.<span class="hljs-property">completedIndexList</span>;<br><br>    <span class="hljs-keyword">if</span> (incomingTimes &amp;&amp; !<span class="hljs-title function_">validateTimes</span>(incomingTimes)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (incomingCompleted &amp;&amp; !<span class="hljs-title function_">validateCompletedIndexList</span>(incomingCompleted)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">let</span> message;<br>    <span class="hljs-keyword">if</span> (type === <span class="hljs-string">&quot;select&quot;</span>) &#123;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_">isUnlocked</span>(record.<span class="hljs-property">linearIndex</span>)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>        &#125;<br>        <span class="hljs-title function_">setCurrentSection</span>(record);<br>        message = <span class="hljs-string">`正在播放：<span class="hljs-subst">$&#123;record.formattedChapterTitle&#125;</span> - <span class="hljs-subst">$&#123;record.formattedSectionTitle&#125;</span>`</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (type === <span class="hljs-string">&quot;complete&quot;</span>) &#123;<br>        <span class="hljs-keyword">const</span> current = <span class="hljs-title function_">getCurrentRecord</span>();<br>        <span class="hljs-keyword">if</span> (!current || current.<span class="hljs-property">id</span> !== record.<span class="hljs-property">id</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>        &#125;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isFinite</span>(duration) || duration &lt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>        &#125;<br>        <span class="hljs-keyword">const</span> storedTime = progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">get</span>(record.<span class="hljs-property">id</span>) ?? <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span> (duration - storedTime &gt; <span class="hljs-variable constant_">HEARTBEAT</span>.<span class="hljs-property">COMPLETION_TOLERANCE_SECONDS</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>        &#125;<br>        <span class="hljs-keyword">const</span> alreadyCompleted = progressState.<span class="hljs-property">completedIndexSet</span>.<span class="hljs-title function_">has</span>(<br>            record.<span class="hljs-property">linearIndex</span><br>        );<br>        <span class="hljs-title function_">markSectionCompleted</span>(record, <span class="hljs-title class_">Number</span>(duration));<br>        message = alreadyCompleted<br>            ? <span class="hljs-string">`<span class="hljs-subst">$&#123;record.formattedSectionTitle&#125;</span> 已完成`</span><br>            : <span class="hljs-string">`<span class="hljs-subst">$&#123;record.formattedSectionTitle&#125;</span> 已完成，下一节已解锁！`</span>;<br>        <span class="hljs-keyword">if</span> (record.<span class="hljs-property">linearIndex</span> === linearSections.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>) &#123;<br>            message = <span class="hljs-string">&quot;所有章节已完成！&quot;</span>;<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">createFailureResponse</span>();<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> snapshot = <span class="hljs-title function_">sanitizeState</span>();<br>    <span class="hljs-title function_">broadcastProgress</span>(message, snapshot);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">createSuccessResponse</span>(&#123; snapshot, message &#125;);<br>&#125;);<br><br>ipcMain.<span class="hljs-title function_">handle</span>(<span class="hljs-string">&quot;video:get&quot;</span>, <span class="hljs-title function_">async</span> () =&gt; &#123;<br>    <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> <span class="hljs-title function_">ensureVideoData</span>();<br>    <span class="hljs-keyword">return</span> data;<br>&#125;);<br><br>ipcMain.<span class="hljs-title function_">handle</span>(<span class="hljs-string">&quot;metadata:get&quot;</span>, <span class="hljs-function">() =&gt;</span> (&#123; outline, final &#125;));<br><br><span class="hljs-keyword">const</span> fakeFlag = <span class="hljs-string">&quot;H3CTF&#123;fake_flag&#125;&quot;</span>;<br>ipcMain.<span class="hljs-title function_">handle</span>(<span class="hljs-string">&quot;page:get&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    flag = fakeFlag;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">areAllSectionsCompleted</span>()) &#123;<br>        flag = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;../module/jsnz.node&quot;</span>).<span class="hljs-title function_">flag</span>(<span class="hljs-built_in">require</span>, <span class="hljs-string">&quot;f4st_f4st_b1ub1u&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> nz = imageData;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`&lt;div class=&quot;flag-content&quot; style=&quot;text-align: center;&quot;&gt;</span><br><span class="hljs-string">        &lt;h1&gt;我复活了！&lt;/h1&gt;</span><br><span class="hljs-string">        &lt;h4&gt;不过，我的肉身怎么变成这样了？一定是那老头搞的鬼！&lt;/h4&gt;</span><br><span class="hljs-string">        &lt;img src=&quot;<span class="hljs-subst">$&#123;nz&#125;</span>&quot;&gt;</span><br><span class="hljs-string">        &lt;p style=&quot;font-size: 12px; color: #666;&quot;&gt;图源：BV1bc93YnEPx&lt;/p&gt;</span><br><span class="hljs-string">        &lt;h4&gt;不管这么多了，总之这是给你的奖励：&lt;/h4&gt;</span><br><span class="hljs-string">        &lt;h2&gt;<span class="hljs-subst">$&#123;flag&#125;</span>&lt;/h2&gt;</span><br><span class="hljs-string">      &lt;/div&gt;</span><br><span class="hljs-string">    `</span>;<br>&#125;);<br><br>ipcMain.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;progress:heartbeat&quot;</span>, <span class="hljs-function">(<span class="hljs-params">event, payload = &#123;&#125;</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; chapterIndex, sectionIndex, currentTime &#125; = payload;<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isFinite</span>(currentTime)) <span class="hljs-keyword">return</span>;<br><br>    <span class="hljs-keyword">const</span> currentRecord = <span class="hljs-title function_">getCurrentRecord</span>();<br>    <span class="hljs-keyword">if</span> (!currentRecord) <span class="hljs-keyword">return</span>;<br><br>    <span class="hljs-keyword">if</span> (<br>        chapterIndex !== currentRecord.<span class="hljs-property">chapterIndex</span> ||<br>        sectionIndex !== currentRecord.<span class="hljs-property">sectionIndex</span><br>    ) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> sectionId = currentRecord.<span class="hljs-property">id</span>;<br>    <span class="hljs-title function_">ensureTimeEntry</span>(sectionId);<br><br>    <span class="hljs-keyword">const</span> storedTime = progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">get</span>(sectionId) ?? <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">abs</span>(currentTime - storedTime) &gt; <span class="hljs-variable constant_">HEARTBEAT</span>.<span class="hljs-property">TIME_TOLERANCE_SECONDS</span>) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> now = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();<br>    <span class="hljs-keyword">const</span> last = progressState.<span class="hljs-property">lastHeartbeat</span>;<br>    <span class="hljs-keyword">if</span> (last &amp;&amp; last.<span class="hljs-property">sectionId</span> === sectionId) &#123;<br>        <span class="hljs-keyword">const</span> deltaWall = now - last.<span class="hljs-property">receivedAt</span>;<br>        <span class="hljs-keyword">if</span> (<br>            deltaWall &lt; <span class="hljs-variable constant_">HEARTBEAT</span>.<span class="hljs-property">MIN_INTERVAL</span> ||<br>            deltaWall &gt; <span class="hljs-variable constant_">HEARTBEAT</span>.<span class="hljs-property">MAX_INTERVAL</span><br>        ) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (currentTime + <span class="hljs-number">0.2</span> &lt; last.<span class="hljs-property">currentTime</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (currentTime - last.<span class="hljs-property">currentTime</span> &gt; deltaWall / <span class="hljs-number">1000</span> + <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>    &#125;<br><br>    progressState.<span class="hljs-property">times</span>.<span class="hljs-title function_">set</span>(sectionId, <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(storedTime, currentTime));<br>    progressState.<span class="hljs-property">lastHeartbeat</span> = &#123; sectionId, <span class="hljs-attr">receivedAt</span>: now, currentTime &#125;;<br>    <span class="hljs-title function_">throttleBroadcast</span>();<br>&#125;);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">throttleBroadcast</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> now = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();<br>    <span class="hljs-keyword">if</span> (now - progressState.<span class="hljs-property">lastBroadcastAt</span> &gt;= <span class="hljs-variable constant_">HEARTBEAT</span>.<span class="hljs-property">BROADCAST_THROTTLE</span>) &#123;<br>        progressState.<span class="hljs-property">lastBroadcastAt</span> = now;<br>        <span class="hljs-title function_">broadcastProgress</span>(<span class="hljs-literal">undefined</span>);<br>    &#125;<br>&#125;<br><br>app.<span class="hljs-title function_">whenReady</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-title function_">createWindow</span>();<br><br>    app.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;activate&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">BrowserWindow</span>.<span class="hljs-title function_">getAllWindows</span>().<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-title function_">createWindow</span>();<br>        &#125;<br>    &#125;);<br>&#125;);<br><br>app.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;window-all-closed&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    app.<span class="hljs-title function_">quit</span>();<br>&#125;);<br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;&#125;;<br><br></code></pre></td></tr></table></figure>
+
+<p>注意到：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span> (process.<span class="hljs-property">env</span>.<span class="hljs-property">SWIFT_AND_UPLIFT</span>) &#123;<br>    <span class="hljs-string">&quot;急急如律令，控制台，开！&quot;</span><br>    mainWindow.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">openDevTools</span>(&#123; <span class="hljs-attr">mode</span>: <span class="hljs-string">&quot;detach&quot;</span> &#125;);<br></code></pre></td></tr></table></figure>
+
+<p>于是</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$env:SWIFT_AND_UPLIFT</span>=<span class="hljs-string">&quot;1&quot;</span>; .\node_modules\.bin\electron.cmd .\app\<br></code></pre></td></tr></table></figure>
+
+<p>启动即可获得控制台。</p>
+<p>审计+AI可知，如果<code>areAllSectionsCompleted()</code>没有满足，那么返回假flag。</p>
+<p><code>ipcMain.on(&quot;progress:heartbeat&quot;, (event, payload = &#123;&#125;)</code>有一个心跳检测，之前我们直接完成所有章节，没有发心跳包，所以检测不通过。</p>
+<p>所以构造js模拟心跳，在console里运行即可，依旧gemini:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getTheTrueFinalFlag</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;🚀 启动最终模拟脚本... 检测到反作弊机制，正在模拟真实用户行为。&quot;</span>);<br>  <br>  <span class="hljs-comment">// 一个辅助函数，用于在异步操作中实现暂停</span><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">sleep</span> = (<span class="hljs-params">ms</span>) =&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> <span class="hljs-built_in">setTimeout</span>(resolve, ms));<br><br>  <span class="hljs-comment">// 1. 获取课程元数据</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;步骤 1/5: 获取课程元数据...&quot;</span>);<br>  <span class="hljs-keyword">const</span> metadata = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">electronAPI</span>.<span class="hljs-title function_">getMetadata</span>();<br>  <span class="hljs-keyword">const</span> outline = metadata.<span class="hljs-property">outline</span>;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`✅ 获取到 <span class="hljs-subst">$&#123;outline.length&#125;</span> 个章节。`</span>);<br><br>  <span class="hljs-comment">// 2. 迭代所有章节，模拟播放、发送心跳并标记为完成</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;步骤 2/5: 迭代所有章节，模拟真实播放...&quot;</span>);<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; outline.<span class="hljs-property">length</span>; i++) &#123;<br>    <span class="hljs-keyword">const</span> chapter = outline[i];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; chapter.<span class="hljs-property">section</span>.<span class="hljs-property">length</span>; j++) &#123;<br>      <span class="hljs-keyword">const</span> sectionTitle = chapter.<span class="hljs-property">section</span>[j];<br>      <span class="hljs-keyword">const</span> sectionIdentifier = <span class="hljs-string">`[<span class="hljs-subst">$&#123;i+<span class="hljs-number">1</span>&#125;</span>-<span class="hljs-subst">$&#123;j+<span class="hljs-number">1</span>&#125;</span>] <span class="hljs-subst">$&#123;sectionTitle&#125;</span>`</span>;<br><br>      <span class="hljs-comment">// A. 选择章节</span><br>      <span class="hljs-keyword">await</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">electronAPI</span>.<span class="hljs-title function_">updateProgress</span>(&#123;<br>        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;select&#x27;</span>, <span class="hljs-attr">chapterIndex</span>: i, <span class="hljs-attr">sectionIndex</span>: j, <span class="hljs-attr">completedIndexList</span>: [], <span class="hljs-attr">times</span>: &#123;&#125;<br>      &#125;);<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`  - <span class="hljs-subst">$&#123;sectionIdentifier&#125;</span> ... 已选择`</span>);<br>      <br>      <span class="hljs-comment">// B. 模拟播放：暂停并发送几次心跳信号</span><br>      <span class="hljs-keyword">let</span> simulatedTime = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">const</span> playbackDurationSeconds = <span class="hljs-number">2</span>; <span class="hljs-comment">// 模拟播放 2 秒</span><br>      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> t = <span class="hljs-number">0</span>; t &lt; playbackDurationSeconds; t++) &#123;<br>        <span class="hljs-keyword">await</span> <span class="hljs-title function_">sleep</span>(<span class="hljs-number">1100</span>); <span class="hljs-comment">// 暂停 1.1 秒，确保心跳间隔符合后端要求</span><br>        simulatedTime++;<br>        <span class="hljs-keyword">await</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">electronAPI</span>.<span class="hljs-title function_">heartbeat</span>(&#123;<br>          <span class="hljs-attr">chapterIndex</span>: i, <span class="hljs-attr">sectionIndex</span>: j, <span class="hljs-attr">currentTime</span>: simulatedTime<br>        &#125;);<br>      &#125;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`  - <span class="hljs-subst">$&#123;sectionIdentifier&#125;</span> ... ❤️ 心跳已发送 (模拟播放 <span class="hljs-subst">$&#123;playbackDurationSeconds&#125;</span>s)`</span>);<br><br>      <span class="hljs-comment">// C. 用一个与心跳记录匹配的 plausible_duration 来完成章节</span><br>      <span class="hljs-keyword">await</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">electronAPI</span>.<span class="hljs-title function_">updateProgress</span>(&#123;<br>        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;complete&#x27;</span>, <span class="hljs-attr">chapterIndex</span>: i, <span class="hljs-attr">sectionIndex</span>: j,<br>        <span class="hljs-attr">duration</span>: simulatedTime, <span class="hljs-comment">// 使用我们模拟的最终播放时间</span><br>        <span class="hljs-attr">completedIndexList</span>: [], <span class="hljs-attr">times</span>: &#123;&#125;<br>      &#125;);<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`  - <span class="hljs-subst">$&#123;sectionIdentifier&#125;</span> ... ✔️ 已完成`</span>);<br>    &#125;<br>  &#125;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;✅ 所有章节已成功模拟并标记为完成。&quot;</span>);<br><br>  <span class="hljs-comment">// 3. 获取包含 Flag 的页面</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;步骤 3/5: 获取 Flag 页面...&quot;</span>);<br>  <span class="hljs-keyword">const</span> flagPageHtml = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">electronAPI</span>.<span class="hljs-title function_">getPage</span>();<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;✅ 成功获取到页面。&quot;</span>);<br><br>  <span class="hljs-comment">// 4. 解析 Flag</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;步骤 4/5: 解析 Flag...&quot;</span>);<br>  <span class="hljs-keyword">const</span> flagRegex = <span class="hljs-regexp">/&lt;h2&gt;(.*?)&lt;\/h2&gt;/</span>;<br>  <span class="hljs-keyword">const</span> match = flagPageHtml.<span class="hljs-title function_">match</span>(flagRegex);<br>  <br>  <span class="hljs-comment">// 5. 显示最终结果</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;步骤 5/5: 显示结果...&quot;</span>);<br>  <span class="hljs-keyword">if</span> (match &amp;&amp; match[<span class="hljs-number">1</span>] &amp;&amp; match[<span class="hljs-number">1</span>] !== <span class="hljs-string">&quot;H3CTF&#123;fake_flag&#125;&quot;</span>) &#123;<br>    <span class="hljs-keyword">const</span> flag = match[<span class="hljs-number">1</span>];<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;------------------------------------------&quot;</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;🎉🎉🎉 恭喜！成功获取真实 Flag：&quot;</span>, flag);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;------------------------------------------&quot;</span>);<br>    <span class="hljs-title function_">alert</span>(<span class="hljs-string">`成功获取真实 Flag: <span class="hljs-subst">$&#123;flag&#125;</span>`</span>);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">const</span> fakeFlag = match ? match[<span class="hljs-number">1</span>] : <span class="hljs-string">&quot;未能解析&quot;</span>;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&quot;错误：获取到的仍然是假 Flag 或未能解析。&quot;</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;获取到的 Flag:&quot;</span>, fakeFlag);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 立即执行终极脚本</span><br><span class="hljs-title function_">getTheTrueFinalFlag</span>();<br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>善于检索+AI。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Practice/" class="print-no-link">#Practice</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>hitctf-那乇：磨瞳降视</div>
+      <div>https://murasame-mio-misaki.github.io/2025/10/15/hitctf-那乇：磨瞳降视/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Miss.M</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>October 15, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/09/25/malloc%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" title="malloc源码阅读1">
+                        <span class="hidden-mobile">malloc源码阅读1</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
