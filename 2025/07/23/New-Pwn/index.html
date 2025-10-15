@@ -19,12 +19,12 @@
   <meta name="author" content="Miss.M">
   <meta name="keywords" content="">
   
-    <meta name="description" content="年初随便写的+搬的一点东西，贴在这里。图片来自星盟安全团队的pwn教程。 binaryLinux用文件头识别文件而非后缀名。 文件存在磁盘中，运行时载入内存。 解释型语言不需要编译出可执行文件，用解释器解释后交给CPU执行。 printf(“%p”,xxx)打印地址。 c compile简要过程 graph LR 	A[&quot;test.c(src)&quot;] 	B[&quot;test.">
+    <meta name="description" content="年初随便写的+搬的一点东西，贴在这里。部分图片来自星盟安全团队的pwn教程。 binaryLinux用文件头识别文件而非后缀名。 文件存在磁盘中，运行时载入内存。 解释型语言不需要编译出可执行文件，用解释器解释后交给CPU执行。 printf(“%p”,xxx)打印地址。 c compile简要过程 graph LR 	A[&quot;test.c(src)&quot;] 	B[&quot;tes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="New Pwn">
 <meta property="og:url" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/index.html">
 <meta property="og:site_name" content="Miss.M">
-<meta property="og:description" content="年初随便写的+搬的一点东西，贴在这里。图片来自星盟安全团队的pwn教程。 binaryLinux用文件头识别文件而非后缀名。 文件存在磁盘中，运行时载入内存。 解释型语言不需要编译出可执行文件，用解释器解释后交给CPU执行。 printf(“%p”,xxx)打印地址。 c compile简要过程 graph LR 	A[&quot;test.c(src)&quot;] 	B[&quot;test.">
+<meta property="og:description" content="年初随便写的+搬的一点东西，贴在这里。部分图片来自星盟安全团队的pwn教程。 binaryLinux用文件头识别文件而非后缀名。 文件存在磁盘中，运行时载入内存。 解释型语言不需要编译出可执行文件，用解释器解释后交给CPU执行。 printf(“%p”,xxx)打印地址。 c compile简要过程 graph LR 	A[&quot;test.c(src)&quot;] 	B[&quot;tes">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250208214908605-1410877441.png">
 <meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250208223224788-686866354.png">
@@ -46,8 +46,10 @@
 <meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250214224729189-174960676.png">
 <meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250216113359742-635481886.png">
 <meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/3527310-20250216115714310-1691751930.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/used_chunk.drawio.png">
+<meta property="og:image" content="https://murasame-mio-misaki.github.io/2025/07/23/New-Pwn/free_chunk.drawio.png">
 <meta property="article:published_time" content="2025-07-23T12:57:02.000Z">
-<meta property="article:modified_time" content="2025-08-27T02:55:18.989Z">
+<meta property="article:modified_time" content="2025-10-15T11:42:24.280Z">
 <meta property="article:author" content="Miss.M">
 <meta property="article:tag" content="Knowledge">
 <meta name="twitter:card" content="summary_large_image">
@@ -93,7 +95,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"murasame-mio-misaki.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"murasame-mio-misaki.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -232,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k words
+          5.8k words
         
       </span>
     
@@ -243,7 +245,7 @@
         
         
         
-          31 mins
+          49 mins
         
       </span>
     
@@ -285,7 +287,7 @@
             
               <div class="markdown-body">
                 
-                <p>年初随便写的+搬的一点东西，贴在这里。图片来自星盟安全团队的pwn教程。</p>
+                <p>年初随便写的+搬的一点东西，贴在这里。部分图片来自星盟安全团队的pwn教程。</p>
 <h2 id="binary"><a href="#binary" class="headerlink" title="binary"></a>binary</h2><p>Linux用文件头识别文件而非后缀名。</p>
 <p>文件存在磁盘中，运行时载入内存。</p>
 <p>解释型语言不需要编译出可执行文件，用解释器解释后交给CPU执行。</p>
@@ -514,7 +516,7 @@ D--&gt;J
 <p>其中<code>0x401186</code>为系统调用shell后门函数的位置。</p>
 <p>需要+1的原因或执行ret的原因：ubuntu18以上的64位程序，system需要进行栈对齐，所以应跳过一项栈指令，这样才能使得栈对齐。</p>
 <p>详细：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ZIKH26/articles/15996874.html">关于ubuntu18版本以上调用64位程序中的system函数的栈对齐问题 - ZikH26 - 博客园</a></p>
-<h2 id="ret2shellcode"><a href="#ret2shellcode" class="headerlink" title="ret2shellcode"></a>ret2shellcode</h2><p>由于程序不太可能真的给出后门函数，所以需要自己构造shellcode。</p>
+<h2 id="ret2shellcode"><a href="#ret2shellcode" class="headerlink" title="ret2shellcode"></a>ret2shellcode</h2><p>有时需要自己构造shellcode。</p>
 <p>初期将shellcode直接写入栈缓冲区，开启NX保护后栈缓冲区不可执行，故改为将shellcode向bss中写入或者向堆中写入，并用mprotect赋予其可执行权限。</p>
 <p>如何获得shellcode?使用pwntools的shellcraft和asm模块。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">asm(shellcraft.sh())<br></code></pre></td></tr></table></figure>
@@ -602,6 +604,107 @@ D[&quot;system@got&quot;]
 E[&quot;system@glibc&quot;]
 A--&gt;B--1--&gt;D--2--&gt;B--3--&gt;C--4--&gt;D--&gt;E
 </code></pre>
+
+<h2 id="Heap"><a href="#Heap" class="headerlink" title="Heap"></a>Heap</h2><p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/introduction/">https://ctf-wiki.org/pwn/linux/user-mode/heap/ptmalloc2/introduction/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/unr4v31/p/14446412.html">https://www.cnblogs.com/unr4v31/p/14446412.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://sourceware.org/glibc/wiki/MallocInternals">https://sourceware.org/glibc/wiki/MallocInternals</a></p>
+<h3 id="Ptmalloc2-Overview"><a href="#Ptmalloc2-Overview" class="headerlink" title="Ptmalloc2 Overview"></a>Ptmalloc2 Overview</h3><p>glibc采用ptmalloc2进行堆管理。核心概念如下：</p>
+<h4 id="chunk"><a href="#chunk" class="headerlink" title="chunk"></a>chunk</h4><p>ptmalloc2中，堆内存被分割为称作<code>chunk</code>的单元，每个chunk可以表示正在被使用&#x2F;空闲的内存。一个chunk通常分为：</p>
+<ul>
+<li>Header：存储管理信息</li>
+<li>User Data：真正给用户使用的内存区域</li>
+</ul>
+<p>chunk的头部包含的信息：</p>
+<ul>
+<li><p><code>prev_size</code>: 如果前一个物理相邻的 chunk 是空闲的，那么这个字段记录了前一个 chunk 的大小。如果前一个 chunk 正在被使用，这个字段则可以被前一个 chunk 用来存储数据。</p>
+</li>
+<li><p><code>size</code>: 当前 chunk 的大小。这个大小必须是 8 字节（32位系统）或 16 字节（64位系统）的倍数，以保证内存对齐。</p>
+</li>
+<li><p><code>A/M/P</code> 标志位 (在 <code>size</code> 字段的最低三位):</p>
+<ul>
+<li><p><strong>A (Allocated&#x2F;Arena):</strong> 如果为 0，表示当前 chunk 属于主分配区 (main_arena)。如果为 1，表示属于线程分配区 (thread arena)。</p>
+</li>
+<li><p><strong>M (Mmapped):</strong> 如果为 1，表示这个 chunk 是通过 <code>mmap</code> 系统调用直接从操作系统分配的，不属于任何 arena。这种 chunk 在释放时会直接通过 <code>munmap</code> 还给操作系统。</p>
+</li>
+<li><p><strong>P (Previous in use):</strong> 如果为 1，表示前一个物理相邻的 chunk 正在被使用。如果为 0，表示前一个 chunk 是空闲的。这个标志位是一个非常重要的优化，它使得 ptmalloc2 可以快速判断前一个 chunk 的状态，从而决定是否进行向前合并。</p>
+</li>
+</ul>
+</li>
+<li><p>当一个 chunk 变为空闲状态时，它的用户数据区会被用来存储两个指针 <code>fd</code> (forward) 和 <code>bk</code> (backward)，用于将它链接到相应的空闲链表（bin）中。</p>
+</li>
+</ul>
+<p><img src="/2025/07/23/New-Pwn/used_chunk.drawio.png" srcset="/img/loading.gif" lazyload alt="using_chunk"></p>
+<p><img src="/2025/07/23/New-Pwn/free_chunk.drawio.png" srcset="/img/loading.gif" lazyload alt="free_chunk"></p>
+<p>关于(s)brk和mmap系统调用：</p>
+<ul>
+<li><p><strong><code>brk</code>&#x2F;<code>sbrk</code>:</strong> 这是管理堆（heap）的“传统”方式。一般情况下，程序的内存data段末尾有一个叫做 <code>program break</code> 的指针。调用 <code>brk</code> 就是告诉操作系统：“请把我的程序内存末尾向高地址移动一段距离，扩大我的堆空间。” 这样做得到的堆空间是<strong>连续的、线性增长的</strong>。主分配区（main_arena）主要使用这种方式来扩展自己的内存池（Top Chunk）。</p>
+</li>
+<li><p><strong><code>mmap</code>:</strong> 这种方式不依赖于那个连续的堆。它可以在虚拟地址空间的任何合适位置“空降”一块新的内存区域。这块区域与主堆（main heap）在物理上和逻辑上都可以是完全不相连的。</p>
+</li>
+</ul>
+<h4 id="Arena"><a href="#Arena" class="headerlink" title="Arena"></a>Arena</h4><p>为了解决多线程环境下的锁竞争问题，ptmalloc2 引入了 <strong>Arena</strong> (分配区) 的概念。</p>
+<ul>
+<li><strong>主分配区 (Main Arena):</strong> 这是进程中第一个，也是唯一一个可以动态增长和收缩的 Arena。它直接管理通过 <code>brk</code> 或 <code>sbrk</code> 系统调用扩展的堆内存。</li>
+<li><strong>线程分配区 (Thread Arenas):</strong> 当多个线程同时请求内存时，如果主分配区被锁定，为了避免线程阻塞等待，ptmalloc2 会为新线程创建独立的 Arena。这些 Arena 通过 <code>mmap</code> 系统调用向操作系统申请大块内存（称为 heap segment），然后在这个内存块上进行 chunk 的切分和管理。</li>
+</ul>
+<h4 id="Bins"><a href="#Bins" class="headerlink" title="Bins"></a>Bins</h4><p>当一个 chunk被 <code>free</code> 之后，它不会立即归还给操作系统，而是会被放入一个叫做 <strong>bin</strong> 的空闲链表中，以备后续的 <code>malloc</code> 请求复用。ptmalloc2 为了优化不同大小内存的分配效率，设计了多种不同的 bin：</p>
+<ul>
+<li><strong>Fast Bins:</strong><ul>
+<li><strong>特点:</strong> 用于存放小尺寸的 chunk（通常小于等于 80 字节，64位系统）。这是一个<strong>单向链表</strong> (只用 <code>fd</code> 指针)，并且采用<strong>后进先出 (LIFO)</strong> 的策略。</li>
+<li><strong>优点:</strong> 速度极快。放入和取出 chunk 只是简单的头插法和头删法。并且，fastbin 中的 chunk 即使被释放，它的 <code>P</code> (Previous in use) 标志位也 <strong>不会</strong> 被清零，因此不会与相邻的空闲 chunk 合并。这避免了合并操作的开销，使得小内存的频繁分配和释放非常高效。</li>
+<li><strong>缺点:</strong> 可能会产生大量的内存碎片。</li>
+</ul>
+</li>
+<li><strong>Unsorted Bin:</strong><ul>
+<li><strong>特点:</strong> 这是一个“中转站”或者说“回收站”。除了 fastbin 范围外的 chunk，当它们被 <code>free</code> 时，或者当 <code>malloc</code> 需要分割一个大的 chunk 产生剩余部分时，这些 chunk <strong>首先</strong> 都会被放入 unsorted bin。它是一个 <strong>双向循环链表</strong>。</li>
+<li><strong>目的:</strong> 给这些刚被释放的 chunk 一个被快速复用的机会。当下次 <code>malloc</code> 请求时，会先遍历 unsorted bin，看是否有大小合适的 chunk 可以直接使用。这利用了程序行为的“时间局部性”原理：刚释放的内存很可能马上又会被申请使用。</li>
+</ul>
+</li>
+<li><strong>Small Bins:</strong><ul>
+<li><strong>特点:</strong> 用于存放固定大小的小 chunk（通常小于 512 字节，64位系统）。每个 small bin 都对应一个精确的 chunk 大小。例如，有一个 bin 专门存放 32 字节的 chunk，另一个专门存放 48 字节的 chunk。它们都是 <strong>双向循环链表</strong>，并采用 <strong>先进先出 (FIFO)</strong> 的策略。</li>
+<li><strong>优点:</strong> 查找和取用非常快，因为不需要遍历，直接去对应大小的 bin 里取第一个就行。</li>
+</ul>
+</li>
+<li><strong>Large Bins:</strong><ul>
+<li><strong>特点:</strong> 用于存放大小不固定的 chunk（大于等于 512 字节，64位系统）。它不像 small bin 那样每个 bin 对应一个精确的大小，而是一个 bin 对应一个大小范围。同一个 large bin 中的 chunk <strong>按大小降序排列</strong> (大的在前，小的在后)。</li>
+<li><strong>优点:</strong> 可以在一个范围内快速找到一个“最佳适配” (best-fit) 的 chunk。当需要分配一个大小时，会从对应的 bin 中遍历，找到第一个大于等于所需大小的 chunk。如果这个 chunk 过大，就会进行切割，一部分返回给用户，另一部分（剩余部分）重新放入 unsorted bin 中。</li>
+</ul>
+</li>
+</ul>
+<h4 id="malloc-和-free-的工作流程"><a href="#malloc-和-free-的工作流程" class="headerlink" title="malloc 和 free 的工作流程"></a>malloc 和 free 的工作流程</h4><h5 id="malloc-size-流程简述"><a href="#malloc-size-流程简述" class="headerlink" title="malloc(size) 流程简述:"></a><code>malloc(size)</code> 流程简述:</h5><ol>
+<li><strong>获取 Arena:</strong> 线程首先确定要使用的 Arena 并尝试加锁。</li>
+<li><strong>计算实际大小:</strong> 将用户请求的 <code>size</code> 转换为内部实际需要的 chunk 大小（加上头部大小并进行内存对齐）。</li>
+<li><strong>尝试 Fastbin:</strong> 如果请求的大小在 fastbin 范围内，直接去对应的 fastbin 链表头取下一个 chunk。如果成功，直接返回用户数据区指针。</li>
+<li><strong>尝试 Smallbin:</strong> 如果请求的大小在 smallbin 范围内，直接去对应的 smallbin 链表取最后一个 chunk（FIFO）。如果成功，返回用户数据区指针。</li>
+<li><strong>合并 Fastbins:</strong> 如果 smallbin 中没有，为了产生更大的空闲块，ptmalloc2 可能会触发一次 fastbin 的整理，将 fastbin 中所有 chunk 合并，并放入 unsorted bin。这个过程称为 <code>malloc_consolidate</code>。</li>
+<li><strong>遍历 Unsorted Bin:</strong> 遍历 unsorted bin 中的每一个 chunk：<ul>
+<li>如果大小完全匹配，直接取用并返回。</li>
+<li>如果大小在 smallbin 范围内但未完全匹配，则将其放入对应的 smallbin。</li>
+<li>如果大小在 largebin 范围内，则将其放入对应的 largebin。</li>
+<li>如果 chunk 足够大，可以分割，则分割成两部分：一部分返回给用户，剩余部分重新放入 unsorted bin 的头部。</li>
+</ul>
+</li>
+<li><strong>查找 Largebin:</strong> 如果在 unsorted bin 中没找到合适的，就去对应的 largebin 中查找。从后往前找一个大小最合适的 chunk 进行分割。</li>
+<li><strong>求助 Top Chunk:</strong> 如果所有 bin 中都没有合适的 chunk，就会求助于 <strong>Top Chunk</strong>。Top Chunk 是 Arena 顶部最大的一块空闲内存。如果 Top Chunk 足够大，就从中切割一块返回。</li>
+<li><strong>扩展堆&#x2F;mmap:</strong> 如果 Top Chunk 也不够大，ptmalloc2 就会：<ul>
+<li>对于主分配区 (main_arena)，调用 <code>sbrk</code> 扩展堆，增大 Top Chunk。</li>
+<li>对于线程分配区 (thread_arena)，调用 <code>mmap</code> 分配新的 heap segment。</li>
+<li>如果请求的内存非常大（通常 &gt; 128KB），可能会直接通过 <code>mmap</code> 分配，这块内存独立管理，不受 Arena 控制。</li>
+</ul>
+</li>
+</ol>
+<h5 id="free-ptr-流程简述"><a href="#free-ptr-流程简述" class="headerlink" title="free(ptr) 流程简述:"></a><code>free(ptr)</code> 流程简述:</h5><ol>
+<li><strong>检查指针:</strong> 检查传入的指针 <code>ptr</code> 是否为空，如果是则直接返回。</li>
+<li><strong>计算 chunk 地址:</strong> 根据用户指针 <code>ptr</code> 计算出它所属的 chunk 的头部地址。</li>
+<li><strong>尝试放入 Fastbin:</strong> 如果 chunk 的大小在 fastbin 范围内，直接以头插法的方式放入对应的 fastbin 链表，然后返回。不做任何合并检查。</li>
+<li><strong>检查 Mmapped Chunk:</strong> 检查 chunk 的 <code>M</code> 标志位。如果是通过 <code>mmap</code> 分配的，直接调用 <code>munmap</code> 将其归还给操作系统。</li>
+<li><strong>进行合并:</strong> 如果不是 fastbin chunk：<ul>
+<li>检查 <code>P</code> 标志位，判断前一个物理相邻的 chunk 是否空闲。如果是，则进行 <strong>向后合并</strong> (合并到前一个 chunk)。</li>
+<li>检查下一个物理相邻的 chunk 是否是 Top Chunk 或者空闲 chunk。如果是，则进行 <strong>向前合并</strong> (将下一个 chunk 合并进来)。</li>
+</ul>
+</li>
+<li><strong>放入 Unsorted Bin:</strong> 将合并后得到的（可能更大的）空闲 chunk 放入 unsorted bin 中，等待下一次 <code>malloc</code> 时被整理和复用。</li>
+</ol>
 
                 
               </div>
