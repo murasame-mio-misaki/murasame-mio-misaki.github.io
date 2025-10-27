@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>TSCTF-J 2025 Python&#39;s Shed Skin</title>
+    <link href="/2025/10/16/TSCTF-J-2025-Python-s-Shed-Skin/"/>
+    <url>/2025/10/16/TSCTF-J-2025-Python-s-Shed-Skin/</url>
+    
+    <content type="html"><![CDATA[<h2 id="What-is-Cython"><a href="#What-is-Cython" class="headerlink" title="What is Cython"></a>What is Cython</h2><p>简单来说，Cython就是将用python编写的程序转译为相对高效的C&#x2F;C++代码，再编译生成.so&#x2F;.pyd模块以供python程序使用，由于使用了C语言所以效率会高很多。</p><h2 id="Python’s-Shed-Skin"><a href="#Python’s-Shed-Skin" class="headerlink" title="Python’s Shed Skin"></a>Python’s Shed Skin</h2><h3 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h3><p>根据程序图标&#x2F;DIE探测可知<code>question.exe</code>是一个python打包程序，使用<code>pyinstxtractor-ng.exe</code>等可以进行解包。找到<code>question.pyc</code>字节码文件，推荐使用<a href="https://pylingual.io/%E8%BF%9B%E8%A1%8C%E5%8F%8D%E7%BC%96%E8%AF%91%EF%BC%8C%E5%9F%BA%E6%9C%AC%E9%80%9A%E6%9D%80%603.13%60%E4%BB%A5%E4%B8%8Bpyc%EF%BC%8C%E4%B8%8D%E8%83%BD%E5%87%BA%E5%AE%8C%E6%95%B4%E6%BA%90%E7%A0%81%E6%97%B6%EF%BC%8C%E5%8F%AF%E9%80%9A%E8%BF%87%E5%AD%97%E8%8A%82%E7%A0%81%E6%9D%A5%E8%87%AA%E8%A1%8C%E7%BF%BB%E8%AF%91%E5%B9%B6%E4%BF%AE%E5%A4%8D%E6%BA%90%E7%A0%81%E3%80%82">https://pylingual.io/进行反编译，基本通杀`3.13`以下pyc，不能出完整源码时，可通过字节码来自行翻译并修复源码。</a></p><p>恢复的<code>question.pyc</code>:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> ezpy<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    user_input = <span class="hljs-built_in">input</span>(<span class="hljs-string">&#x27;Please input your flag: &#x27;</span>)<br>    <span class="hljs-keyword">if</span> ezpy.encrypt_check_flag(user_input):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Correct Flag! You are a master of reversing!&#x27;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Wrong Flag! Keep trying.&#x27;</span>)<br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    main()<br></code></pre></td></tr></table></figure><p>导入了<code>ezpy</code>模块，采用模块中的方法<code>encrypt_check_flag</code>来校验输入，所以我们要重点分析<code>ezpy.cp312-win_amd64.pyd</code>这个Cython编译后的模块。</p><h3 id="Part-2"><a href="#Part-2" class="headerlink" title="Part 2"></a>Part 2</h3><p>根据模块名称可知，该模块在windows amd64架构下使用python 3.12环境编译。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Reverse</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Practice</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>hitctf-那乇：磨瞳降视</title>
     <link href="/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/"/>
     <url>/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/</url>
