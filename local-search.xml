@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>ReWindows</title>
+    <link href="/2026/01/20/ReWindows/"/>
+    <url>/2026/01/20/ReWindows/</url>
+    
+    <content type="html"><![CDATA[<p>学期结束了，把windows恢复出厂重新倒腾一遍。不得不说ai真是太好用了，放在以前不知道遇到的问题要google多久，现在Gemini answers anything.</p><h2 id="Disk-Reallocate"><a href="#Disk-Reallocate" class="headerlink" title="Disk Reallocate"></a>Disk Reallocate</h2><p>我是1T的盘，本来的划分方案是C盘150G，D盘757G。这显然不太合理，C盘总红，D盘拥挤。</p><p>重新划完大概是C盘250G，D盘300G，E、F盘各200G这样。用windows自己的磁盘管理重分配就行。</p><p>磁盘备份和恢复镜像采用Hasleo Backup Suite，好用的。</p><h2 id="Desktop-Beautify"><a href="#Desktop-Beautify" class="headerlink" title="Desktop Beautify"></a>Desktop Beautify</h2><p>之前问题就是桌面快捷方式太多太乱，然后任务栏丑。</p><p>先用translucentTB把任务栏透明化。</p><p>然后用经典Nexus+Rainmeter方案整一套新的dock和桌面时钟，用Gemini随便搓个Rainmeter的时钟和音频可视化皮肤就行了。</p><p>最后找一张喜欢的东京雨姐壁纸（兜兜转转还是感觉静态壁纸好，Wallpaper还是拿来追x番吧hh），隐藏桌面图标。</p><p>效果大概这样：</p><p><img src="/2026/01/20/ReWindows/image-20260120045329110.png" alt="Desktop"></p><p>果然对于臃肿的windows减法就是加法，看得心情无比舒畅了。</p><p>顺带一提锁屏用了张图，应该是草稿：</p><p><img src="/2026/01/20/ReWindows/94813984_p1_master1200.jpg" alt="Lock"></p><p>输完pin进来有没一种糖糖od完然后恢复正常的感觉（并非正常就是了）。</p><p>是这位老师的作品：<a href="https://www.pixiv.net/users/60777791">隹 - pixiv</a>。<del>除了这张画的都是美男子应该是位太太但为啥感觉男人画得不如这小天使有感觉可能我是以男性视角感受的吧嗯嗯</del></p><h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p><del>这一世我要当环境管理糕手</del></p><h3 id="Language"><a href="#Language" class="headerlink" title="Language"></a>Language</h3><h4 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h4><p>我要用pyenv了，conda桑，沙扬娜拉。</p><p><a href="https://github.com/pyenv/pyenv">https://github.com/pyenv/pyenv</a></p><ul><li>pyenv-win默认且只能装到C盘，迁移方法：将.pyenv移到其他盘符下的新建目录，将PYENV三个环境变量改为指向这个新的.pyenv&#x2F;pyenv-win，然后将Path里的bin和shims也改了</li><li>在管理应用执行别名中关闭python.exe和python3.exe自动跳转微软商店的行为</li></ul><p>使用</p><ul><li><code>pyenv install x.xx.x</code>安装特定版本</li><li><code>pyenv versions</code>列出已安装版本</li><li><code>pyenv shell </code>—— 仅当前 shell 会话有效</li><li><code>pyenv local </code>—— 当前目录及子目录自动选择</li><li><code>pyenv global </code>—— 全局（用户级）选择</li></ul><h4 id="Nodejs"><a href="#Nodejs" class="headerlink" title="Nodejs"></a>Nodejs</h4><p>nvm管理环境</p><p><a href="https://github.com/coreybutler/nvm-windows">https://github.com/coreybutler/nvm-windows</a></p><p>把npm全局安装重定位到其他盘符。</p><p>然后要更新hexo博客那一堆node_modules依赖。</p><h4 id="git-Java-gcc"><a href="#git-Java-gcc" class="headerlink" title="git,Java,gcc"></a>git,Java,gcc</h4><p>安装scoop一把梭</p><p>用<code>scoop reset</code>切java版本</p><h4 id="Vscode"><a href="#Vscode" class="headerlink" title="Vscode"></a>Vscode</h4><p>code runner, Copilot, Codex</p><h3 id="IDA-Related"><a href="#IDA-Related" class="headerlink" title="IDA Related"></a>IDA Related</h3><p>看看崭新出厂的IDA 9.3</p><p><a href="https://www.52pojie.cn/thread-2083080-1-1.html">【全平台】IDA Pro 9.3beta 泄露版+注册机 - 吾爱破解 - 52pojie.cn</a></p><h4 id="IDA-Python"><a href="#IDA-Python" class="headerlink" title="IDA Python"></a>IDA Python</h4><p>至少要3.11及以上，<code>idapyswitch.exe -s</code>指定到<code>python3,dll</code>位置</p><h4 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h4><p><a href="https://github.com/HACK-THE-WORLD/IDAPluginList">HACK-THE-WORLD&#x2F;IDAPluginList: IDA插件集合，含项目名称及项目地址，每日定时Clone项目。</a></p><p><a href="https://github.com/onethawt/idaplugins-list">onethawt&#x2F;idaplugins-list: A list of IDA Plugins</a></p><p>应该还是得装个8.3应对古老插件</p><h3 id="WSL"><a href="#WSL" class="headerlink" title="WSL"></a>WSL</h3><p>装了Ubuntu和Kali两个发行版。</p><p>移动到其他盘，这个网上讲得挺多的。</p><p>wsl kali的kex桌面很流畅感觉，这不比Vmware强？</p><p>好吧其实还是有点bug，不过kali用的不多就是了，反正Vmware是不会再碰了。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Miscellaneous things</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Tools</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>hitctf-那乇：磨瞳降视</title>
     <link href="/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/"/>
     <url>/2025/10/15/hitctf-%E9%82%A3%E4%B9%87%EF%BC%9A%E7%A3%A8%E7%9E%B3%E9%99%8D%E8%A7%86/</url>
